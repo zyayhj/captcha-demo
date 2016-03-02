@@ -47,7 +47,7 @@
 				 * @type: String/Function
 				 * @default: "center" 
 				 * 该项参数也可以是函数类型，例如：
-				 *         position: function({width:验证码的款,height:验证码的高}){
+				 *         position: function({width:验证码的宽,height:验证码的高}){
 				 *             返回值应该是css属性组合成的对象
 				 *             return {}; 
 				 *         }
