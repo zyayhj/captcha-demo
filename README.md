@@ -8,3 +8,4 @@
 
 README-jslib.txt 是 JavaScript Lib 文档 
 
+如有疑问，请添加点触官方QQ群咨询：群号码：205658675
