@@ -5,6 +5,7 @@
 # JavaScript Lib 
 
 点触 JavaScript Lib 地址均为云端地址, http://js.touclick.com/js.touclick?b=公钥 (从http://www.touclick.com 注册获取)
+
 使用该页面的SDK，请到 http://admin.touclick.com 注册新账号，或者联系点触工程师，升级原有账号。
 
 README-jslib.txt 是 JavaScript Lib 文档 
