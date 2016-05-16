@@ -1,1 +1,0 @@
-在config.properties输入公钥PUB_KEY和私钥PRI_KEY(从点触官网申请得到)
