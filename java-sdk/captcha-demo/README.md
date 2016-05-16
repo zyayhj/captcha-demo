@@ -42,11 +42,12 @@ d.在打开的页面中按照引导提示操作激活
 
 激活成功后再进行如果操作:
 
-####导包:
+####导包
 导入java-sdk-1.0.0.jar以及其他相关jar包 (lib目录下)
 
-####新建config.properties文件:
+####新建config.properties文件
 在自已的项目classpath下新建config.properties文件(如果本身项目中有,则不需要建立),填写公钥和私钥供sdk使用.具体参照captcha-demo中的使用方法.
+
 	```java
 	#公钥
 	PUB_KEY= 公钥(从点触官网注册)
