@@ -35,7 +35,7 @@ b.在web.xml中添加如下配置
    </servlet-mapping>
    ```
    
-c.启动自动的项目访问`http://localhost:8080/`项目名/activate.do
+c.启动自动的项目访问`http://localhost:8080/项目名/activate.do`
 
 说明:端口号不一定是8080,依自己项目所使用的服务器为准;路径依自己放置的路径为准
 
