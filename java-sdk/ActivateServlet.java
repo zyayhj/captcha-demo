@@ -156,7 +156,7 @@ class Parameter{
     private String name;
     private String value;
     
-    Public Parameter(String name, String value) {
+    public Parameter(String name, String value) {
 	super();
 	this.name = name;
 	this.value = value;
