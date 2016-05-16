@@ -13,7 +13,7 @@ if __name__ == "__main__":
     setup(
         name="touclick",
         version=VERSION,
-        packages=['touclick'],
+        packages=['captcha-python-sdk'],
         url='',
         license='',
         author='touclick',
