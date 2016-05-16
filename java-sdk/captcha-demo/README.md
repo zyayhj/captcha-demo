@@ -35,24 +35,17 @@ b.在web.xml中添加如下配置
    </servlet-mapping>
    ```
    
-c.启动自动的项目访问http://localhost:8080/项目名/activate.do
-   		说明:端口号不一定是8080,依自己项目所使用的服务器为准;路径依自己放置的路径为准
+c.启动自动的项目访问`http://localhost:8080/`项目名/activate.do
+
+说明:端口号不一定是8080,依自己项目所使用的服务器为准;路径依自己放置的路径为准
 
 d.在打开的页面中按照引导提示操作激活
 
-激活成功后再进行如果操作:
+#激活成功后再进行如果操作:
 
 ####导包
 导入java-sdk-1.0.0.jar以及其他相关jar包 (lib目录下)
 
 ####新建config.properties文件
 在自已的项目classpath下新建config.properties文件(如果本身项目中有,则不需要建立),填写公钥和私钥供sdk使用.具体参照captcha-demo中的使用方法.
-
-	```java
-	#公钥
-	PUB_KEY= 公钥(从点触官网注册)
-	#私钥
-	PRI_KEY= 私钥(从点触官网注册)
-	```
-    	
 
