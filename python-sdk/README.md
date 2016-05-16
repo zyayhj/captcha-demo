@@ -5,6 +5,28 @@
  - Python (推荐2.7.0以上版本）
  - tornado框架
 
+## 文件说明
+
+* setup.py、requirements.txt 安装SDK
+* activate/ 激活功能，为了确保您的公钥能正常使用，请务必使用配套的SDK进行激活
+* captcha-demo/ web项目调用演示
+* captcha-python-sdk/ SDK
+
+## 公钥激活
+
+`为了公钥能正常使用，请务必进行激活，如更换SDK，则需要使用新SDK的激活程序重新进行激活`
+
+`激活过后，建议删除 activate/ 文件夹`
+
+进入activate文件夹，运行:
+
+```bash
+$ python start.py
+```
+
+在浏览器中访问http://127.0.0.1:8088,按照引导提示操作
+
+
 ## 使用指南
 
 1. 安装SDK
@@ -49,16 +71,6 @@
   (9, "http请求异常")
   (10, "json转换异常,可能是请求地址有误,请检查请求地址(http://[checkAddress].touclick.com/sverify.touclick?参数)")
   ```
-
-## 激活SDK
-
-进入activator文件夹，运行:
-
-```bash
-$ python start.py
-```
-
-在浏览器中访问http://127.0.0.1:8088,按照引导提示操作
 
 ## 运行demo
 
