@@ -20,7 +20,7 @@ import com.touclick.captcha.service.TouClick;
 @Controller
 public class TouclickController {
     
-	private TouClick touclick = new TouClick(); 
+    private TouClick touclick = new TouClick(); 
     /**
     * @Title: verify
     * @Description: 服务端请求TouClick二次验证
@@ -32,21 +32,21 @@ public class TouclickController {
     @RequestMapping(value = "/verify",method = RequestMethod.POST)
     public void  verify(final HttpServletRequest request,HttpServletResponse response){
     	
-		String checkKey = request.getParameter("checkAddress");
-		String token = request.getParameter("token");
-		//一次验证传递的参数,同一次验证一样
-		String checkCode = request.getParameter("checkCode");
-		Status status = null;
-		try {
-			status = touclick.check(checkCode,checkKey,token);
-		} catch (TouclickException e) {
-			System.out.println(e);
-		}
-		System.out.println("checkKey :"+checkKey + ",token:" + token+ ",checkCode:" + checkCode);
-		System.out.println("code :"+status.getCode() + ",message:" + status.getMessage());
-		if(status != null && status.getCode()==0){
-			//执行自己的程序逻辑
-		}
+        String checkKey = request.getParameter("checkAddress");
+        String token = request.getParameter("token");
+        //一次验证传递的参数,同一次验证一样
+        String checkCode = request.getParameter("checkCode");
+        Status status = null;
+        try {
+            status = touclick.check(checkCode,checkKey,token);
+        } catch (TouclickException e) {
+            System.out.println(e);
+        }
+        System.out.println("checkKey :"+checkKey + ",token:" + token+ ",checkCode:" + checkCode);
+        System.out.println("code :"+status.getCode() + ",message:" + status.getMessage());
+        if(status != null && status.getCode()==0){
+            //执行自己的程序逻辑
+        }
         
     }
     
