@@ -21,6 +21,10 @@ import com.touclick.captcha.service.TouClick;
 public class TouclickController {
     
     private TouClick touclick = new TouClick(); 
+    
+    private static final String PUBKEY = "";//公钥(从点触官网获取)
+    private static final String PRIKEY = "";//私钥(从点触官网获取)
+    
     /**
     * @Title: verify
     * @Description: 服务端请求TouClick二次验证
@@ -38,7 +42,7 @@ public class TouclickController {
         String checkCode = request.getParameter("checkCode");
         Status status = null;
         try {
-            status = touclick.check(checkCode,checkKey,token);
+            status = touclick.check(checkCode,checkKey,token,PUBKEY,PRIKEY);
         } catch (TouclickException e) {
             System.out.println(e);
         }
