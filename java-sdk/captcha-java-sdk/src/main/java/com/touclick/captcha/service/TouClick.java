@@ -14,6 +14,13 @@ import com.touclick.captcha.model.Parameter;
 import com.touclick.captcha.model.Status;
 import com.touclick.captcha.util.TouclickUtil;
 
+/**
+* @ClassName: TouClick
+* @Description: 请求二次验证, 服务端验证
+* @author zhanwei
+* @date 2016年5月17日 下午4:37:06
+* @version 1.0
+ */
 public class TouClick implements Serializable {
     private static final Logger LOGGER = Logger.getLogger(TouClick.class);
 
