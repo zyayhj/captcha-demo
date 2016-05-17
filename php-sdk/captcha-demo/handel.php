@@ -20,6 +20,7 @@ $PRIKEY = "15f1d6c3-7a87-441d-ad9d-c6a9014c7ccb";
 
 $touclick = new TouClick($PUBKEY,$PRIKEY);
 $res = $touclick->check($checkCode, $checkAddress, $token);
+
 //$res['code'] 的详细说明请看README.md
 if ($res ['code'] === 0) {
 	exit('验证成功');

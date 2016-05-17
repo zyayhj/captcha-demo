@@ -34,7 +34,7 @@
 2. 二次验证
 
 	```php
-	$res = touclick->check($checkCode, $checkKey, $token);
+	$res = touclick->check($checkCode, $checkAddress, $token);
 	//$res['code'] 的详细说明请看README.md
 	if ($res ['code'] === 0) {
 		exit('验证成功');
@@ -45,4 +45,4 @@
 
 3. 运行
 
-启动PHP服务器，访问captcha-demo/index.php
+启动PHP服务器，访问 `captcha-demo/index.php` 就可体验

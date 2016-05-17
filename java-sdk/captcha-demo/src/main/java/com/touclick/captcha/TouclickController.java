@@ -36,7 +36,11 @@ public class TouclickController {
      */
     @RequestMapping(value = "/verify",method = RequestMethod.POST)
     public void  verify(final HttpServletRequest request,HttpServletResponse response){
-    	
+    	/*
+    	*  token 二次验证口令，单次有效
+    	*  checkAddress 二次验证地址，二级域名
+    	*  checkCode 校验码，开发者自定义，一般采用手机号或者用户ID，用来更细致的频次控制
+    	*/
         String checkAddress = request.getParameter("checkAddress");
         String token = request.getParameter("token");
         //一次验证传递的参数,同一次验证一样
