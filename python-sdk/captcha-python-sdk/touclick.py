@@ -45,6 +45,19 @@ class TouclickLib(object):
         self.pri_key = pri_key
 
     def check(self, check_code, check_address, token, user_name="", user_id=""):
+        """二次验证
+        Args:
+            token: 二次验证口令，单次有效
+            check_address: 二次验证地址，二级域名
+            checkCode: 校验码，开发者自定义，一般采用手机号或者用户ID，用来更细致的频次控制
+
+        Returns:
+            表示验证结果的元组
+            例如：
+                (0, "")
+                (3, "一次验证返回的token为必需参数,不可为空")
+        """
+        
         if check_address == None or self.ADDR_PATTERN.match(check_address) == None:
             return self.STATUS["STATUS_CHECKADDRESS_ERROR"]
 
