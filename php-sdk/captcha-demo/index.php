@@ -8,7 +8,7 @@
     <script src="http://js.touclick.com/js.touclick?b=<?php echo $PUBKEY ?>" ></script>
 </head>
 <body >
-    
+     
     <form action="handel.php" method="POST" id="form">
         <input type="hidden" value="1" name="token" id="token"/> 
         <input type="hidden" value="2" name="checkAddress" id="checkAddress"/>

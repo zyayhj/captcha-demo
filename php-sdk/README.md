@@ -17,8 +17,32 @@
 
 `激活过后，建议删除 activate/ 文件夹`
 
-`请访问 activate/activate.html`
+`请访问 activate/activate.html , 然后根据引导进行激活`
 
 ## 如何使用
 
-1. 
+1. 初始化验证码类
+
+	```php
+	/*$PUBKEY 、 $PRIKEY 从http://admin.touclick.com注册获取 */
+	$PUBKEY = "";
+	$PRIKEY = "";
+
+	var touclick = new TouClick($PUBKEY,$PRIKEY);
+	```
+
+2. 二次验证
+
+	```php
+	$res = touclick->check($checkCode, $checkKey, $token);
+	//$res['code'] 的详细说明请看README.md
+	if ($res ['code'] === 0) {
+		exit('验证成功');
+	} else {
+		exit($res ['message']);
+	}
+	```
+
+3. 运行
+
+启动PHP服务器，访问captcha-demo/index.php
