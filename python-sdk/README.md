@@ -9,8 +9,8 @@
 
 * setup.py、requirements.txt 安装SDK
 * activate/ 激活功能，为了确保您的公钥能正常使用，请务必使用配套的SDK进行激活
-* captcha-demo/ web项目调用演示
-* captcha-python-sdk/ SDK
+* captcha-demo/ web项目调用示例
+* captcha-python-sdk/ SDK源码
 
 ## 公钥激活
 

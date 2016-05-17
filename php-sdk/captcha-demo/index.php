@@ -4,12 +4,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title></title>
     <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
-    <?php require_once '/sdk/touclick/touclick.php';?>
-    <script src="http://js.touclick.com/js.touclick?b=<?php echo PUBKEY ?>" ></script>
+    <?php require_once 'handel.php';?>
+    <script src="http://js.touclick.com/js.touclick?b=<?php echo $PUBKEY ?>" ></script>
 </head>
 <body >
     
-    <form action="sdk/handel.php" method="POST" id="form">
+    <form action="handel.php" method="POST" id="form">
         <input type="hidden" value="1" name="token" id="token"/> 
         <input type="hidden" value="2" name="checkAddress" id="checkAddress"/>
         <input type="hidden" value="3" name="checkCode" id="checkCode"/>
