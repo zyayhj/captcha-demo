@@ -21,4 +21,22 @@
 
 ## 如何使用
 
-1. 
+1. 初始化验证码类
+```php
+/*$PUBKEY 、 $PRIKEY 从http://admin.touclick.com注册获取 */
+$PUBKEY = "";
+$PRIKEY = "";
+
+var touclick = new TouClick($PUBKEY,$PRIKEY);
+```
+
+2. 二次验证
+```php
+$res = touclick->check($checkCode, $checkKey, $token);
+//$res['code'] 的详细说明请看README.md
+if ($res ['code'] === 0) {
+	exit('验证成功');
+} else {
+	exit($res ['message']);
+}
+```
