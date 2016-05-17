@@ -1,17 +1,17 @@
-#Touclick Java SDK
+#点触验证码 Java SDK
 
 
 ##开发环境
   
-  - jdk1.5及以上
+  - JDK 1.5及以上
   - tomcat
 
 ##文件说明
 
 * ActivateServlet.java/ 激活功能,为了确保您的公钥能正常使用,请务必使用配套的SDK进行激活
 * captcha-demo/ web项目调用演示
-* captcha-java-sdk/ SDK
-* lib/ 项目中需要的jar包
+* captcha-java-sdk/ SDK源码
+* lib/ 项目中可能需要的jar包
   
 ##演示demo
 
@@ -80,4 +80,3 @@
        //执行自己的程序逻辑
    }
    ```
-   
