@@ -12,8 +12,8 @@ class TouClick{
 	 * @author : rainbow
 	 * @return :
 	 */
-	public function check($checkCode, $checka, $token, $userName = '', $userId = 0) {
-		if (empty ( $checkCode ) || empty ( $checkKey ) || empty ( $token )) {
+	public function check($checkCode, $checkAddress, $token, $userName = '', $userId = 0) {
+		if (empty ( $checkCode ) || empty ( $checkAddress ) || empty ( $token )) {
 			exit ( '参数为空' );
 		}
 		
@@ -26,7 +26,7 @@ class TouClick{
 		$sign = getSign ( $params, $prikey );
 		$params ['sign'] = $sign;
 		$paramStr = getStr ( $params );
-		$url = "http://" . $checkKey . ".touclick.com/sverify.touclick" . '?' . $paramStr;
+		$url = "http://" . $checkAddress . ".touclick.com/sverify.touclick" . '?' . $paramStr;
 		
 		// use curl
 		$ch = curl_init ();
