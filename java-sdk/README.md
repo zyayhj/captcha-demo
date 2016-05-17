@@ -18,7 +18,7 @@
 1. 在resources下config.properties中填写从点触官网注册获得的公钥和私钥
    
 2. 在index.html中填写
-   ```java
+   ```xml
       <script src="http://js.touclick.com/js.touclick?b=公钥(从点触官网获得)" ></script>
    ```
    
@@ -34,7 +34,7 @@
 1. 将ActivateServlet.java复制到自己的项目中或者新建web项目运行ActivateServlet.java
 
 2. 在web.xml中添加如下配置
-   ```java
+   ```xml
    <servlet>
       <servlet-name>activateServlet</servlet-name>
       <servlet-class>com.touclick.captcha.ActivateServlet</servlet-class>
@@ -80,6 +80,4 @@
        //执行自己的程序逻辑
    }
    ```
-
-
-
+   
