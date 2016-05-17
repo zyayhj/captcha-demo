@@ -70,6 +70,7 @@ $ python start.py
   (8, "点触服务器异常")
   (9, "http请求异常")
   (10, "json转换异常,可能是请求地址有误,请检查请求地址(http://[checkAddress].touclick.com/sverify.touclick?参数)")
+  (11, "二次验证地址不合法")
   ```
 
 ## 运行demo
