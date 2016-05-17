@@ -14,7 +14,7 @@ VERSION = "1.0.0"
 class TouclickLib(object):
 
     CHECK_CODE = "checkCode"
-    CHECK_KEY = "checkAddress"
+    CHECK_ADDRESS = "checkAddress"
     TOKEN = "token"
 
     STATUS = {
