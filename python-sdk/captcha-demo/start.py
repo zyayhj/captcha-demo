@@ -21,9 +21,9 @@ class VerifyHandler(tornado.web.RequestHandler):
     def post(self):
         tc = TouclickLib(pub_key, pri_key)
         check_code = self.get_argument(tc.CHECK_CODE, "")
-        check_key = self.get_argument(tc.CHECK_ADDRESS, "")
+        check_address = self.get_argument(tc.CHECK_ADDRESS, "")
         token = self.get_argument(tc.TOKEN, "")
-        code, msg = tc.check(check_code, check_key, token)
+        code, msg = tc.check(check_code, check_address, token)
         if code == 0:
             #执行自己的程序逻辑
             pass

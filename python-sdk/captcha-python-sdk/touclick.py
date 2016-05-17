@@ -9,7 +9,7 @@ from hashlib import md5
 if sys.version_info >= (3,):
     xrange = range
 
-VERSION = "1.0.0"
+VERSION = "1.1.0"
 
 class TouclickLib(object):
 

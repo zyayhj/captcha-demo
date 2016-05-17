@@ -15,7 +15,8 @@ import com.touclick.captcha.service.TouClick;
 * @ClassName: TouclickController
 * @Description: 请求二次验证的服务端
 * @author zhanwei
-* @date 2016年3月11日 上午9:32:17
+* @date 2016年5月17日 下午4:32:42
+* @version 1.0
  */
 @Controller
 public class TouclickController {
