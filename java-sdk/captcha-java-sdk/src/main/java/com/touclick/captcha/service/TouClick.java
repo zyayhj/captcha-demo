@@ -27,22 +27,22 @@ public class TouClick implements Serializable {
      * 请求二次验证, 服务端验证
      *
      * @param checkCode 一次验证携带的参数,与一次验证相同.(非必需,可为"")
-     * @param checkKey  一次验证返回的checkAddress
+     * @param checkAddress  一次验证返回的checkAddress
      * @param token     一次验证返回的token
      * @param pubKey    公钥
      * @param priKey    私钥
      * @return Status   返回类型
      * @throws TouclickException
      */
-    public Status check(String checkCode, String checkKey, String token,String pubKey,String priKey) throws TouclickException {
-        return this.check(checkCode, checkKey, token, pubKey, priKey, "", "");
+    public Status check(String checkCode, String checkAddress, String token,String pubKey,String priKey) throws TouclickException {
+        return this.check(checkCode, checkAddress, token, pubKey, priKey, "", "");
     }
 
     /**
      * 请求二次验证, 服务端验证
      *
      * @param checkCode 一次验证携带的参数,与一次验证相同.(非必需,可为"")
-     * @param checkKey  一次验证返回的checkAddress
+     * @param checkAddress  一次验证返回的checkAddress
      * @param token     一次验证返回的token
      * @param pubKey    公钥
      * @param priKey    私钥
@@ -51,9 +51,9 @@ public class TouClick implements Serializable {
      * @return Status    返回类型
      * @throws TouclickException
      */
-    public Status check(String checkCode, String checkKey, String token,String pubKey,String priKey, String userName, String userId) throws TouclickException {
+    public Status check(String checkCode, String checkAddress, String token,String pubKey,String priKey, String userName, String userId) throws TouclickException {
         if (checkCode == null
-                || checkKey == null || "".equals(checkKey)
+                || checkAddress == null || "".equals(checkAddress)
                 || pubKey == null || "".equals(pubKey)
                 || priKey == null || "".equals(priKey)
                 || token == null || "".equals(token)) {
@@ -72,7 +72,7 @@ public class TouClick implements Serializable {
         params.add(new Parameter("ud", userId));
         String sign = TouclickUtil.buildMysign(params, priKey);
         StringBuilder url = new StringBuilder();
-        url.append(HTTP).append(checkKey).append(POSTFIX);
+        url.append(HTTP).append(checkAddress).append(POSTFIX);
         params.add(new Parameter("sign", sign));
         Response response = null;
         System.out.println(url);
