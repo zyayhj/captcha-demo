@@ -34,18 +34,22 @@ class TouclickLib(object):
     HTTP = "http://"
     POSTFIX = ".touclick.com/sverify.touclick"
 
+    ADDR_PATTERN = re.compile(r'^[_\-0-9a-zA-Z]+$')
+
     def __init__(self, pub_key, pri_key):
         assert pub_key != None and pub_key != ""
         assert pri_key != None and pri_key != ""
         self.pub_key = pub_key
         self.pri_key = pri_key
 
-    def check(self, check_code, check_key, token, user_name="", user_id=""):
+    def check(self, check_code, check_address, token, user_name="", user_id=""):
+        if check_address == None or self.ADDR_PATTERN.match(check_address) == None:
+            return self.STATUS["STATUS_HTTP_ERROR"]
 
         params = {"ckcode": check_code, "i": token, "b": self.pub_key,
                     "un": user_name, "ud": user_id, "ip": ""}
         params["sign"] = self._sign(params, self.pri_key)
-        url = self.HTTP + check_key + self.POSTFIX
+        url = self.HTTP + check_address + self.POSTFIX
         try:
             response = requests.get(url, params=params, timeout=30)
             if response.status_code == requests.codes.ok:
