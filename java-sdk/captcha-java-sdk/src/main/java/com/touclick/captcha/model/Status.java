@@ -13,7 +13,8 @@ public class Status {
     public static final int STATUS_SERVER_ERROR = 8;//点触服务器异常
     public static final int STATUS_HTTP_ERROR = 9;//http请求异常
     public static final int STATUS_JSON_TRANS_ERROR = 10;//json转换异常,可能是请求地址有误,请检查请求地址(http://sverify.touclick.com/sverify.touclick?参数)
-
+    public static final int CHECKADDRESS_ERROR = 11;//二次验证地址不合法
+    
     private int code;
 
     private String message;
@@ -76,6 +77,9 @@ public class Status {
                 break;
             case STATUS_JSON_TRANS_ERROR:
                 cause = "json转换异常,可能是请求地址有误,请检查请求地址(http://[checkAddress].touclick.com/sverify.touclick?参数)";
+                break;
+            case CHECKADDRESS_ERROR:
+                cause = "二次验证地址不合法";
                 break;
             default:
                 cause = "";

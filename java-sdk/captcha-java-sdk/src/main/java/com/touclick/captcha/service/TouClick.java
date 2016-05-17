@@ -5,7 +5,11 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.apache.log4j.Logger;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.touclick.captcha.exception.TouclickException;
 import com.touclick.captcha.http.HttpClient;
@@ -66,6 +70,12 @@ public class TouClick implements Serializable {
                 || token == null || "".equals(token)) {
             throw new TouclickException("参数有误");
         }
+        Pattern pattern = Pattern.compile("^[_\\-0-9a-zA-Z]+$");
+        Matcher matcher = pattern.matcher(checkAddress);
+        if(!matcher.matches()){
+        	return new Status(Status.CHECKADDRESS_ERROR, Status.getCause(Status.CHECKADDRESS_ERROR));
+        }
+        
         List<Parameter> params = new ArrayList<Parameter>();
         params.add(new Parameter("ckcode", checkCode));
         params.add(new Parameter("i", token));
