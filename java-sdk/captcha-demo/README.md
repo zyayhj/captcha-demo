@@ -58,6 +58,29 @@
 ####导包
 导入java-sdk-1.0.0.jar以及其他相关jar包 (lib目录下)
 
-####新建config.properties文件
-在自已的项目classpath下新建config.properties文件(如果本身项目中有,则不需要建立),填写公钥和私钥供sdk使用.具体参照captcha-demo中的使用方法.
+####填写公钥私钥
+	```java
+	private static final String PUBKEY = "";//公钥(从点触官网获取)
+    	private static final String PRIKEY = "";//私钥(从点触官网获取)
+    	```
+    	
+####调用SDK
+	```java
+	String checkKey = request.getParameter("checkAddress");
+        	String token = request.getParameter("token");
+        	//一次验证传递的参数,同一次验证一样
+        	String checkCode = request.getParameter("checkCode");
+        	Status status = null;
+        	try {
+            	status = touclick.check(checkCode,checkKey,token,PUBKEY,PRIKEY);
+        	} catch (TouclickException e) {
+            	System.out.println(e);
+        	}
+        	System.out.println("checkKey :"+checkKey + ",token:" + token+ ",checkCode:" + checkCode);
+        	System.out.println("code :"+status.getCode() + ",message:" + status.getMessage());
+        	if(status != null && status.getCode()==0){
+            	//执行自己的程序逻辑
+       	 }
+        	```
+        	
 
