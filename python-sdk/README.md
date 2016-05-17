@@ -3,6 +3,7 @@
 ## 开发环境
 
  - Python (推荐2.7.0以上版本）
+ - requests
  - tornado框架
 
 ## 文件说明
@@ -75,10 +76,24 @@ $ python start.py
 
 ## 运行demo
 
-进入demo文件夹，运行:
+进入captcha-demo文件夹，
 
-```bash
-$ python start.py
-```
-
-在浏览器中访问http://127.0.0.1:8088即可看到demo界面
+1. 在static/login.html中填写
+  ```html
+  <script src="http://js.touclick.com/js.touclick?b=公钥（从点触官网申请）" ></script>
+  ```
+  
+2. 在start.py中填写
+  ```python
+  from touclick import TouclickLib
+  
+  pub_key = "" #公钥
+  pri_key = "" #私钥
+  ```
+  
+3. 运行demo
+  ```bash
+  $ python start.py
+  ```
+  
+在浏览器中访问http://127.0.0.1:8088 即可看到demo界面
