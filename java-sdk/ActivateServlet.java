@@ -40,6 +40,7 @@ public class ActivateServlet extends HttpServlet {
 	response.setCharacterEncoding("utf-8");
 	response.setContentType("text/html");
 	PrintWriter out = response.getWriter();
+	out.println("<!DOCTYPE html>");
 	out.println("<html>");
 	out.println("<head>");
 	out.println("<title>点触验证码公钥激活</title>");
