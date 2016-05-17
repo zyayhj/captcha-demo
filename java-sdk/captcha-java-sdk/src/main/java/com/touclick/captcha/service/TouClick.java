@@ -5,10 +5,8 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.log4j.Logger;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.touclick.captcha.conf.Configuration;
 import com.touclick.captcha.exception.TouclickException;
 import com.touclick.captcha.http.HttpClient;
 import com.touclick.captcha.http.Response;
@@ -23,31 +21,21 @@ public class TouClick implements Serializable {
     private static final String HTTP = "http://";
     private static final String POSTFIX = ".touclick.com/sverify.touclick";
 
-    private static String pubKey = "";
-    private static String priKey = "";
-
     private HttpClient client = new HttpClient();
 
-    static {
-        try {
-            pubKey = Configuration.getString("PUB_KEY");
-            priKey = Configuration.getString("PRI_KEY");
-        } catch (IllegalArgumentException e) {
-            LOGGER.error(e.getMessage());
-        }
-    }
-
     /**
      * 请求二次验证, 服务端验证
      *
      * @param checkCode 一次验证携带的参数,与一次验证相同.(非必需,可为"")
      * @param checkKey  一次验证返回的checkAddress
      * @param token     一次验证返回的token
-     * @return Status    返回类型
+     * @param pubKey    公钥
+     * @param priKey    私钥
+     * @return Status   返回类型
      * @throws TouclickException
      */
-    public Status check(String checkCode, String checkKey, String token) throws TouclickException {
-        return this.check(checkCode, checkKey, token, "", "");
+    public Status check(String checkCode, String checkKey, String token,String pubKey,String priKey) throws TouclickException {
+        return this.check(checkCode, checkKey, token, pubKey, priKey, "", "");
     }
 
     /**
@@ -56,12 +44,14 @@ public class TouClick implements Serializable {
      * @param checkCode 一次验证携带的参数,与一次验证相同.(非必需,可为"")
      * @param checkKey  一次验证返回的checkAddress
      * @param token     一次验证返回的token
+     * @param pubKey    公钥
+     * @param priKey    私钥
      * @param userName  请求用户名 用于统计分析
      * @param userId    请求用户id 用于统计分析
      * @return Status    返回类型
      * @throws TouclickException
      */
-    public Status check(String checkCode, String checkKey, String token, String userName, String userId) throws TouclickException {
+    public Status check(String checkCode, String checkKey, String token,String pubKey,String priKey, String userName, String userId) throws TouclickException {
         if (checkCode == null
                 || checkKey == null || "".equals(checkKey)
                 || pubKey == null || "".equals(pubKey)

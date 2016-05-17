@@ -3,7 +3,6 @@ package com.touclick.captcha.http;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.List;
-
 import org.apache.commons.httpclient.DefaultHttpMethodRetryHandler;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpMethod;
@@ -14,8 +13,6 @@ import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.commons.httpclient.params.HttpConnectionManagerParams;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.apache.log4j.Logger;
-
-import com.touclick.captcha.conf.Configuration;
 import com.touclick.captcha.exception.TouclickException;
 import com.touclick.captcha.model.Parameter;
 
@@ -37,7 +34,7 @@ public class HttpClient implements java.io.Serializable {
     org.apache.commons.httpclient.HttpClient client = null;
 
     private MultiThreadedHttpConnectionManager connectionManager;
-    private final static boolean DEBUG = Configuration.getBoolean("IS_DEBUG");
+    private final static boolean DEBUG = false;
 
     public HttpClient() {
         this(150, 30000, 30000, 1024 * 1024);
