@@ -2,31 +2,37 @@
 class TouClick{
 	var $pubkey;
 	var $prikey;
-	function __construct($pubkey,$prikey){
-		this->pubkey = $pubkey;
-		this->prikey = $prikey;
+	
+	function __construct($pubkey='',$prikey=''){
+		$this->pubkey = $pubkey;
+		$this->prikey = $prikey;
 	}
+	
 	/**
 	 * @date: 2016-3-23 上午10:20:04
-	 * 
 	 * @author : rainbow
+	 * @param token 二次验证口令，单次有效
+	 * @param checkAddress 二次验证地址，二级域名
+	 * @param checkCode 校验码，开发者自定义，一般采用手机号或者用户ID，用来更细致的频次控制
 	 * @return :
 	 */
-	public function check($checkCode, $checka, $token, $userName = '', $userId = 0) {
-		if (empty ( $checkCode ) || empty ( $checkKey ) || empty ( $token )) {
+	public function check($checkCode, $checkAddress, $token, $userName = '', $userId = 0) {
+		if (empty ( $checkAddress ) || empty ( $token )) {
 			exit ( '参数为空' );
 		}
-		
+		if (!preg_match('/^[\w\-]/',$checkAddress)){
+			exit('参数格式不正确');
+		}
 		$params ['ckcode'] = $checkCode;
 		$params ['un'] = $userName;
 		$params ['ud'] = $userId;
 		$params ['ip'] = @gethostbyname ( $_ENV ['COMPUTERNAME'] );
 		$params ['i'] = $token;
-		$params ['b'] = $pubkey;
-		$sign = getSign ( $params, $prikey );
+		$params ['b'] = $this->pubkey;
+		$sign = $this->getSign ( $params, $this->prikey );
 		$params ['sign'] = $sign;
-		$paramStr = getStr ( $params );
-		$url = "http://" . $checkKey . ".touclick.com/sverify.touclick" . '?' . $paramStr;
+		$paramStr = $this->getStr ( $params );
+		$url = "http://" . $checkAddress . ".touclick.com/sverify.touclick" . '?' . $paramStr;
 		
 		// use curl
 		$ch = curl_init ();
@@ -48,7 +54,7 @@ class TouClick{
 	 * @return :md5($sign)
 	 */
 	private function getSign($params, $prikey) {
-		ksort ( $params ) ? $paramsStr = getStr ( $params ) : exit ( '排序失败' );
+		ksort ( $params ) ? $paramsStr = $this->getStr ( $params ) : exit ( '排序失败' );
 		$sign = $paramsStr . $prikey;
 		return md5 ( $sign );
 	}

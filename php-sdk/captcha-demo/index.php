@@ -4,8 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title></title>
     <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
-    <?php require_once 'handel.php';?>
-    <script src="http://js.touclick.com/js.touclick?b=<?php echo $PUBKEY ?>" ></script>
+    <script src="http://js.touclick.com/js.touclick?b=c39469b6-e947-4480-ba06-ad0cf0a70f85" ></script>
 </head>
 <body >
      
