@@ -1,24 +1,24 @@
-#Touclick Java SDK
+#点触验证码 Java SDK
 
 
 ##开发环境
   
-  - jdk1.5及以上
+  - JDK 1.5及以上
   - tomcat
 
 ##文件说明
 
 * ActivateServlet.java/ 激活功能,为了确保您的公钥能正常使用,请务必使用配套的SDK进行激活
 * captcha-demo/ web项目调用演示
-* captcha-java-sdk/ SDK
-* lib/ 项目中需要的jar包
+* captcha-java-sdk/ SDK源码
+* lib/ 项目中可能需要的jar包
   
 ##演示demo
 
 1. 在resources下config.properties中填写从点触官网注册获得的公钥和私钥
    
 2. 在index.html中填写
-   ```java
+   ```xml
       <script src="http://js.touclick.com/js.touclick?b=公钥(从点触官网获得)" ></script>
    ```
    
@@ -34,7 +34,7 @@
 1. 将ActivateServlet.java复制到自己的项目中或者新建web项目运行ActivateServlet.java
 
 2. 在web.xml中添加如下配置
-   ```java
+   ```xml
    <servlet>
       <servlet-name>activateServlet</servlet-name>
       <servlet-class>com.touclick.captcha.ActivateServlet</servlet-class>
@@ -96,5 +96,3 @@
   (9, "http请求异常")
   (10, "json转换异常,可能是请求地址有误,请检查请求地址(http://[checkAddress].touclick.com/sverify.touclick?参数)")
   ```
-
-

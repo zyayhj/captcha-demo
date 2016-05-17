@@ -1,0 +1,23 @@
+{
+  "name": "nodejs-sdk",
+  "version": "1.0.4",
+  "description": "Touclick sdk for nodejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "test_cmd"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zyayhj/captcha-demo.git"
+  },
+  "keywords": [
+    "touclick",
+    "sdk"
+  ],
+  "author": "zyayhj",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zyayhj/captcha-demo/issues"
+  },
+  "homepage": "https://github.com/zyayhj/captcha-demo#readme"
+}
