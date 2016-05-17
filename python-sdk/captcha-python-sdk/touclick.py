@@ -3,6 +3,7 @@ import sys
 import random
 import json
 import requests
+import re
 from hashlib import md5
 
 
@@ -28,7 +29,8 @@ class TouclickLib(object):
         "STATUS_VERIFY_ERROR": (7, "一次验证错误"),
         "STATUS_SERVER_ERROR": (8, "点触服务器异常"),
         "STATUS_HTTP_ERROR": (9, "http请求异常"),
-        "STATUS_JSON_TRANS_ERROR": (10, "json转换异常,可能是请求地址有误,请检查请求地址(http://[checkAddress].touclick.com/sverify.touclick?参数)")
+        "STATUS_JSON_TRANS_ERROR": (10, "json转换异常,可能是请求地址有误,请检查请求地址(http://[checkAddress].touclick.com/sverify.touclick?参数)"),
+        "STATUS_CHECKADDRESS_ERROR": (11, "二次验证地址不合法")
     }
 
     HTTP = "http://"
@@ -44,7 +46,7 @@ class TouclickLib(object):
 
     def check(self, check_code, check_address, token, user_name="", user_id=""):
         if check_address == None or self.ADDR_PATTERN.match(check_address) == None:
-            return self.STATUS["STATUS_HTTP_ERROR"]
+            return self.STATUS["STATUS_CHECKADDRESS_ERROR"]
 
         params = {"ckcode": check_code, "i": token, "b": self.pub_key,
                     "un": user_name, "ud": user_id, "ip": ""}
