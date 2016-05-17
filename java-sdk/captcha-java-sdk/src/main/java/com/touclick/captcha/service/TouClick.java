@@ -24,6 +24,9 @@ import com.touclick.captcha.util.TouclickUtil;
 * @author zhanwei
 * @date 2016年5月17日 下午4:37:06
 * @version 1.0
+* 
+* 说明：
+* 	请求点触服务器进行二次验证
  */
 public class TouClick implements Serializable {
     private static final Logger LOGGER = Logger.getLogger(TouClick.class);
@@ -37,9 +40,9 @@ public class TouClick implements Serializable {
     /**
      * 请求二次验证, 服务端验证
      *
-     * @param checkCode 一次验证携带的参数,与一次验证相同.(非必需,可为"")
-     * @param checkAddress  一次验证返回的checkAddress
-     * @param token     一次验证返回的token
+     * @param checkCode 校验码，开发者自定义，一般采用手机号或者用户ID，用来更细致的频次控制
+     * @param checkAddress  二次验证地址，二级域名
+     * @param token     二次验证口令，单次有效
      * @param pubKey    公钥
      * @param priKey    私钥
      * @return Status   返回类型
@@ -52,9 +55,9 @@ public class TouClick implements Serializable {
     /**
      * 请求二次验证, 服务端验证
      *
-     * @param checkCode 一次验证携带的参数,与一次验证相同.(非必需,可为"")
-     * @param checkAddress  一次验证返回的checkAddress
-     * @param token     一次验证返回的token
+     * @param checkCode 校验码，开发者自定义，一般采用手机号或者用户ID，用来更细致的频次控制
+     * @param checkAddress  二次验证地址，二级域名
+     * @param token     二次验证口令，单次有效
      * @param pubKey    公钥
      * @param priKey    私钥
      * @param userName  请求用户名 用于统计分析
