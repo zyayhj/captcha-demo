@@ -45,7 +45,7 @@ $ python start.py
   ```
 
 3. 二次验证
-  
+
   ```python
   tc = TouclickLib(pub_key, pri_key)
   check_code = self.get_argument(tc.CHECK_CODE, "")
@@ -56,9 +56,9 @@ $ python start.py
       #执行自己的程序逻辑
       pass
   ```
-  
+
   `check`方法的返回值为元组`(code, message)`，可能的取值如下所示：
-  
+
   ```python
   (0, "验证正确")
   (1, "该验证已过期")
@@ -72,6 +72,7 @@ $ python start.py
   (9, "http请求异常")
   (10, "json转换异常,可能是请求地址有误,请检查请求地址(http://[checkAddress].touclick.com/sverify.touclick?参数)")
   (11, "二次验证地址不合法")
+  (12, "签名校验失败,数据可能被篡改")
   ```
 
 ## 运行demo
@@ -82,18 +83,18 @@ $ python start.py
   ```html
   <script src="http://js.touclick.com/js.touclick?b=公钥（从点触官网申请）" ></script>
   ```
-  
+
 2. 在start.py中填写
   ```python
   from touclick import TouclickLib
-  
+
   pub_key = "" #公钥
   pri_key = "" #私钥
   ```
-  
+
 3. 运行demo
   ```bash
   $ python start.py
   ```
-  
+
 在浏览器中访问http://127.0.0.1:8088 即可看到demo界面

@@ -4,7 +4,7 @@ public class Response {
     private int status;
 
     private String info;
-
+    
     public Response() {
     }
 
