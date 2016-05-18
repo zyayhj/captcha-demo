@@ -4,6 +4,7 @@
 * Nodejs 0.12.x
 
 ### 文件说明
+
 * `activate/` 激活功能，为了确保您的公钥能正常使用，请务必使用配套的SDK进行激活
 * `post.js` 是二次验证的调用示例
 
@@ -28,7 +29,7 @@
 	touclickSdk.init(pubkey, prikey);
 	```
 
-	请修改 post.js ，填写公钥
+	请修改 index.html ,在正确位置填写公钥
 
 	```xml
 	<script src="http://js.touclick.com/js.touclick?b=公钥(从点触官网申请)" ></script>
@@ -37,12 +38,15 @@
 3. 公钥激活
 
 	`为了公钥能正常使用，请务必进行激活，如更换SDK，则需要使用新SDK的激活程序重新进行激活`
+
 	`激活过后，建议删除 activate/ 文件夹`
 
 	```bash
-	$ cd nodejs-demo
-	$ npm activate
+	$ cd nodejs-demo/activate
+	$ node activate.js #务必在 nodejs-demo/activate 下执行
 	```
+
+	浏览器访问 `http://127.0.0.1:3000/`, 按照页面提示进行激活，激活成功后，退出`node`
 
 4. 启动服务
 
@@ -51,7 +55,7 @@
 	$ npm start
 	```
 
-浏览器访问`http://127.0.0.1:3000/index.html`就可体验
+	浏览器访问`http://127.0.0.1:3000/index.html`就可体验
 
 ### 依赖
 

@@ -1,20 +1,13 @@
 /**
-* @FileName: touclick.js
-* @Description: 二次验证, 服务端验证
+* @FileName: activate.js
+* @Description: 激活
 * @author delete
 * @date 2016年5月18日 下午1:36:01
 * @version 1.0
  */
-var finalhandler = require('finalhandler'), http = require('http'), Router = require('router'), fs = require('fs'),querystring = require('querystring');
+var finalhandler = require('finalhandler'), http = require('http'), Router = require('router'), fs = require('fs'),querystring = require('querystring'), request = require('request');
 var touclickSdk = require('touclick-nodejs-sdk');
-
-/**
- * 请于http://admin.touclick.com 注册以获取公钥与私钥
- */
-var pubkey = "",
-	prikey = "";
-
-touclickSdk.init(pubkey, prikey);
+var VERSION = "5.1.0",URL = "http://js.touclick.com/sdk/version/notify?"
 
 /**
  * on linux,you can "$ export PORT=3001".
@@ -34,10 +27,9 @@ function renderFile(filePath){
 var router = Router();
 
 router.get('/', renderFile("index.html"));
-router.get('/index', renderFile("index.html"));
 router.get('/index.html', renderFile("index.html"));
 
-router.post('/postdata',function(req, res){
+router.post('/activate',function(req, res){
 	req.setEncoding('utf-8');
     var postData = "";
     req.addListener("data", function (postDataChunk) {
@@ -46,19 +38,22 @@ router.post('/postdata',function(req, res){
     req.addListener("end", function () {
         var params = querystring.parse(postData);
         console.log(JSON.stringify(params));
-
-        var token = params["token"],checkAddress = params["checkAddress"],checkCode = params["checkCode"];
-        
-        touclickSdk.check(token,checkAddress,checkCode, function(result){
-			console.log(result)
-	        if(result["code"] === 0){
-	        	res.end("SUCCESS");
-	        }else{
-	        	res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'});
-				res.end(JSON.stringify(result));
-	        }
+        var z = params["z"];
+        var ret = {"b":params["b"],"v":VERSION};//b、v 的顺序不能颠倒
+        console.log("z:"+z);
+        console.log(ret);
+        ret["sign"] = touclickSdk.md5(querystring.stringify(ret) + z);
+        console.log(ret);
+        console.log(URL + querystring.stringify(ret))
+        request({
+        	method: "GET",
+        	uri: URL + querystring.stringify(ret),
+        	timeout: 5000
+        },function (error, response, body) {
+			if (!error && response.statusCode == 200) {
+				res.end(body);
+			}
         });
-       
     });
 });
 /**
