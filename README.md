@@ -1,6 +1,7 @@
 # 点触验证码使用demo
 
 详情请关注各语言sdk
+
 [![image](https://raw.githubusercontent.com/zyayhj/captcha-demo/master/images/java2.png)](https://github.com/zyayhj/captcha-demo/tree/master/java-sdk)
 [![image](https://raw.githubusercontent.com/zyayhj/captcha-demo/master/images/php2.png)](https://github.com/zyayhj/captcha-demo/tree/master/php-sdk)
 [![image](https://raw.githubusercontent.com/zyayhj/captcha-demo/master/images/python2.png)](https://github.com/zyayhj/captcha-demo/tree/master/python-sdk)
