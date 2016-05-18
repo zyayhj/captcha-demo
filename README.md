@@ -1,6 +1,11 @@
 # 点触验证码使用demo
 
 详情请关注各语言sdk
+[![image](https://raw.githubusercontent.com/zyayhj/captcha-demo/master/images/java1.png)](https://github.com/zyayhj/captcha-demo/tree/master/java-sdk)
+[![image](https://raw.githubusercontent.com/zyayhj/captcha-demo/master/images/php1.png)](https://github.com/zyayhj/captcha-demo/tree/master/php-sdk)
+[![image](https://raw.githubusercontent.com/zyayhj/captcha-demo/master/images/python1.png)](https://github.com/zyayhj/captcha-demo/tree/master/python-sdk)
+[![image](https://raw.githubusercontent.com/zyayhj/captcha-demo/master/images/go.png)](https://github.com/zyayhj/captcha-demo/tree/master/go-sdk)
+[![image](https://raw.githubusercontent.com/zyayhj/captcha-demo/master/images/js1.png)](https://github.com/zyayhj/captcha-demo/tree/master/nodejs-demo)
 
 # JavaScript Lib 
 
@@ -18,7 +23,6 @@ README-jslib.txt 是 JavaScript Lib 文档
 拖动旋转
 
 ![image](https://raw.githubusercontent.com/zyayhj/captcha-demo/master/images/rotate.png)
-![image](https://raw.githubusercontent.com/zyayhj/captcha-demo/master/images/block.png)
 
 图标点击
 
@@ -29,6 +33,6 @@ README-jslib.txt 是 JavaScript Lib 文档
 ![image](https://raw.githubusercontent.com/zyayhj/captcha-demo/master/images/classical_new.png)
 
 
-[![image](https://raw.githubusercontent.com/zyayhj/captcha-demo/master/images/rotate.png)](http://www.touclick.com)
+
 
 
