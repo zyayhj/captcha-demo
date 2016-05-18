@@ -36,13 +36,13 @@
 	```php
 	$res = touclick->check($checkCode, $checkAddress, $token);
 	//$res['code'] 的详细说明请看README.md
-	if ($res ['code'] === 0) {
-		exit('验证成功');
+	if ($res) {
+            var_dump ($res);
 	} else {
-		exit($res ['message']);
-	}
+            var_dump('验证成功');
+	}	
 	```
 
 3. 运行
 
-启动PHP服务器，访问 `captcha-demo/index.php` 就可体验
+启动PHP服务器，访问 `captcha-demo/index.html` 就可体验

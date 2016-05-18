@@ -17,15 +17,18 @@ README-jslib.txt 是 JavaScript Lib 文档
 
 拖动旋转
 
-![image](https://github.com/touclick/captcha-demo/blob/master/images/rotate.png)
+![image](https://raw.githubusercontent.com/zyayhj/captcha-demo/master/images/rotate.png)
+![image](https://raw.githubusercontent.com/zyayhj/captcha-demo/master/images/block.png)
 
 图标点击
 
-![image](https://github.com/touclick/captcha-demo/blob/master/images/block.png)
+![image](https://raw.githubusercontent.com/zyayhj/captcha-demo/master/images/block.png)
 
 图文点击
 
-![image](https://github.com/touclick/captcha-demo/blob/master/images/classical_new.png)
+![image](https://raw.githubusercontent.com/zyayhj/captcha-demo/master/images/classical_new.png)
 
+
+[![image](https://raw.githubusercontent.com/zyayhj/captcha-demo/master/images/rotate.png)](http://www.touclick.com)
 
 
