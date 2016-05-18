@@ -1,11 +1,11 @@
 # 点触验证码使用demo
 
 详情请关注各语言sdk
-[![image](https://raw.githubusercontent.com/zyayhj/captcha-demo/master/images/java1.png)](https://github.com/zyayhj/captcha-demo/tree/master/java-sdk)
-[![image](https://raw.githubusercontent.com/zyayhj/captcha-demo/master/images/php1.png)](https://github.com/zyayhj/captcha-demo/tree/master/php-sdk)
-[![image](https://raw.githubusercontent.com/zyayhj/captcha-demo/master/images/python1.png)](https://github.com/zyayhj/captcha-demo/tree/master/python-sdk)
-[![image](https://raw.githubusercontent.com/zyayhj/captcha-demo/master/images/go.png)](https://github.com/zyayhj/captcha-demo/tree/master/go-sdk)
-[![image](https://raw.githubusercontent.com/zyayhj/captcha-demo/master/images/js1.png)](https://github.com/zyayhj/captcha-demo/tree/master/nodejs-demo)
+[![image](https://raw.githubusercontent.com/zyayhj/captcha-demo/master/images/java2.png)](https://github.com/zyayhj/captcha-demo/tree/master/java-sdk)
+[![image](https://raw.githubusercontent.com/zyayhj/captcha-demo/master/images/php2.png)](https://github.com/zyayhj/captcha-demo/tree/master/php-sdk)
+[![image](https://raw.githubusercontent.com/zyayhj/captcha-demo/master/images/python2.png)](https://github.com/zyayhj/captcha-demo/tree/master/python-sdk)
+[![image](https://raw.githubusercontent.com/zyayhj/captcha-demo/master/images/go2.png)](https://github.com/zyayhj/captcha-demo/tree/master/go-sdk)
+[![image](https://raw.githubusercontent.com/zyayhj/captcha-demo/master/images/js2.png)](https://github.com/zyayhj/captcha-demo/tree/master/nodejs-demo)
 
 # JavaScript Lib 
 
