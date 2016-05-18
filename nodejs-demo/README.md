@@ -22,23 +22,23 @@ $ npm activate
 
 1. 安装依赖
 
-```bash
-$ npm install #安装依赖包
-```
+	```bash
+	$ npm install #安装依赖包
+	```
 
 2. 公钥激活
 
-```bash
-$ cd nodejs-demo
-$ npm activate
-```
+	```bash
+	$ cd nodejs-demo
+	$ npm activate
+	```
 
 3. 启动服务
 
-```bash
-$ cd nodejs-demo
-$ npm start
-```
+	```bash
+	$ cd nodejs-demo
+	$ npm start
+	```
 
 浏览器访问`http://127.0.0.1:3000/index.html`就可体验
 
