@@ -28,4 +28,6 @@ README-jslib.txt 是 JavaScript Lib 文档
 ![image](https://github.com/touclick/captcha-demo/blob/master/images/classical_new.png)
 
 
+[![image](https://github.com/touclick/captcha-demo/blob/master/images/rotate.png)](http://www.touclick.com)
+
 
