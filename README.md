@@ -18,6 +18,7 @@ README-jslib.txt 是 JavaScript Lib 文档
 拖动旋转
 
 ![image](https://raw.githubusercontent.com/zyayhj/captcha-demo/master/images/rotate.png)
+![image](https://raw.githubusercontent.com/zyayhj/captcha-demo/master/images/block.png)
 
 图标点击
 
