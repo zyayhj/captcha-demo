@@ -6,11 +6,19 @@
 * @version 1.0
  */
 var finalhandler = require('finalhandler'), http = require('http'), Router = require('router'), fs = require('fs');
+var touclickSdk = require('touclick-nodejs-sdk');
+
+/**
+ * 请于http://admin.touclick.com 注册以获取公钥与私钥
+ */
+var pubkey = "",
+	prikey = "";
+	
+touclickSdk.init(pubkey, prikey);
 
 /**
  * on linux,you can "$ export PORT=3001".
  */
-
 var port = normalizePort(process.env.PORT || '3000');
 
 function renderFile(filePath){
@@ -38,6 +46,7 @@ router.get('/postdata',function(req, res){
     req.addListener("end", function () {
         var params = querystring.parse(postData);
         console.log(JSON.stringify(params));
+        var token = params["token"],checkAddress = params["checkAddress"],checkCode = params["checkCode"];
 
         res.end("表单提交成功");
     });

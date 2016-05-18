@@ -7,38 +7,49 @@
 * `activate/` 激活功能，为了确保您的公钥能正常使用，请务必使用配套的SDK进行激活
 * `post.js` 是二次验证的调用示例
 
-### 公钥激活
-
-`为了公钥能正常使用，请务必进行激活，如更换SDK，则需要使用新SDK的激活程序重新进行激活`
-
-`激活过后，建议删除 activate/ 文件夹`
-
-```bash
-$ cd nodejs-demo
-$ npm activate
-```
-
 ### 使用指南
 
 1. 安装依赖
 
-```bash
-$ npm install #安装依赖包
-```
+	```bash
+	$ npm install #安装依赖包
+	```
+2. 填写公钥
 
-2. 公钥激活
+	请修改 post.js ，填写公钥与私钥
 
-```bash
-$ cd nodejs-demo
-$ npm activate
-```
+	```javascript
+	/**
+	 * 请于http://admin.touclick.com 注册以获取公钥与私钥
+	 */
+	var pubkey = "",
+		prikey = "";
+		
+	touclickSdk.init(pubkey, prikey);
+	```
 
-3. 启动服务
+	请修改 post.js ，填写公钥
 
-```bash
-$ cd nodejs-demo
-$ npm start
-```
+	```xml
+	<script src="http://js.touclick.com/js.touclick?b=公钥(从点触官网申请)" ></script>
+	```
+
+3. 公钥激活
+
+	`为了公钥能正常使用，请务必进行激活，如更换SDK，则需要使用新SDK的激活程序重新进行激活`
+	`激活过后，建议删除 activate/ 文件夹`
+
+	```bash
+	$ cd nodejs-demo
+	$ npm activate
+	```
+
+4. 启动服务
+
+	```bash
+	$ cd nodejs-demo
+	$ npm start
+	```
 
 浏览器访问`http://127.0.0.1:3000/index.html`就可体验
 
