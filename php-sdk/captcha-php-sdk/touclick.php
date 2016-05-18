@@ -14,7 +14,7 @@ class TouClick{
 	 * @param token 二次验证口令，单次有效
 	 * @param checkAddress 二次验证地址，二级域名
 	 * @param checkCode 校验码，开发者自定义，一般采用手机号或者用户ID，用来更细致的频次控制
-	 * @return :
+	 * @return :验证成功 或 array(2) { ["code"]=> int(1) ["message"]=> string(23) "二次验证token失效" } 
 	 */
 	public function check($checkCode, $checkAddress, $token, $userName = '', $userId = 0) {
 		if (empty ( $checkAddress ) || empty ( $token )) {
@@ -42,7 +42,23 @@ class TouClick{
 		$result = curl_exec ( $ch );
 		curl_close ( $ch );
 		
-		return json_decode ( $result, true );//{code:0,message:''}
+		$check = is_object(json_decode($result)) ? get_object_vars(json_decode($result)) : json_decode($result);
+		if ($check['code'] == 0) {
+			$checkParam['code'] = $check['code'];
+			$checkParam['timestamp'] = $check['timestamp'];
+			$sign = $this->getSign($checkParam, $this->prikey);
+			if ($sign == $check['sign']) {
+				return 0;
+			} else {
+				$res['code'] = 12;
+				$res['message'] = '';
+				return $res;
+			}
+		} else {
+			unset($check['timestamp']);
+			unset($check['sign']);
+			return $check; 
+		}
 	}
 
 	/**
