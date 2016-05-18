@@ -15,7 +15,11 @@
   
 ##演示demo
 
-1. 在resources下config.properties中填写从点触官网注册获得的公钥和私钥
+1. 在`TouclickController`中填写从点触官网注册获得的公钥和私钥
+   ```java	
+   private static final String PUBKEY = "";//公钥(从点触官网获取)
+   private static final String PRIKEY = "";//私钥(从点触官网获取)
+   ```
    
 2. 在index.html中填写
    ```xml
@@ -68,12 +72,7 @@
    String token = request.getParameter("token");
    //一次验证传递的参数,同一次验证一样
    String checkCode = request.getParameter("checkCode");
-   Status status = null;
-   try {
-       status = touclick.check(checkCode,checkKey,token,PUBKEY,PRIKEY);
-   } catch (TouclickException e) {
-       System.out.println(e);
-   }
+   Status status = touclick.check(checkCode,checkKey,token,PUBKEY,PRIKEY);
    System.out.println("checkKey :"+checkKey + ",token:" + token+ ",checkCode:" + checkCode);
    System.out.println("code :"+status.getCode() + ",message:" + status.getMessage());
    if(status != null && status.getCode()==0){
@@ -95,4 +94,6 @@
   (8, "点触服务器异常")
   (9, "http请求异常")
   (10, "json转换异常,可能是请求地址有误,请检查请求地址(http://[checkAddress].touclick.com/sverify.touclick?参数)")
+  (11, "二次验证地址不合法")
+  (12, "签名校验失败,数据可能被篡改")
   ```

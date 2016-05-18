@@ -3,6 +3,7 @@ import sys
 import random
 import json
 import requests
+import re
 from hashlib import md5
 
 
@@ -28,7 +29,8 @@ class TouclickLib(object):
         "STATUS_VERIFY_ERROR": (7, "一次验证错误"),
         "STATUS_SERVER_ERROR": (8, "点触服务器异常"),
         "STATUS_HTTP_ERROR": (9, "http请求异常"),
-        "STATUS_JSON_TRANS_ERROR": (10, "json转换异常,可能是请求地址有误,请检查请求地址(http://[checkAddress].touclick.com/sverify.touclick?参数)")
+        "STATUS_JSON_TRANS_ERROR": (10, "json转换异常,可能是请求地址有误,请检查请求地址(http://[checkAddress].touclick.com/sverify.touclick?参数)"),
+        "STATUS_CHECKADDRESS_ERROR": (11, "二次验证地址不合法")
     }
 
     HTTP = "http://"
@@ -43,8 +45,21 @@ class TouclickLib(object):
         self.pri_key = pri_key
 
     def check(self, check_code, check_address, token, user_name="", user_id=""):
+        """二次验证
+        Args:
+            token: 二次验证口令，单次有效
+            check_address: 二次验证地址，二级域名
+            checkCode: 校验码，开发者自定义，一般采用手机号或者用户ID，用来更细致的频次控制
+
+        Returns:
+            表示验证结果的元组
+            例如：
+                (0, "")
+                (3, "一次验证返回的token为必需参数,不可为空")
+        """
+        
         if check_address == None or self.ADDR_PATTERN.match(check_address) == None:
-            return self.STATUS["STATUS_HTTP_ERROR"]
+            return self.STATUS["STATUS_CHECKADDRESS_ERROR"]
 
         params = {"ckcode": check_code, "i": token, "b": self.pub_key,
                     "un": user_name, "ud": user_id, "ip": ""}

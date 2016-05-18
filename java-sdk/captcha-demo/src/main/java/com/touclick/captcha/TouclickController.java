@@ -27,6 +27,7 @@ public class TouclickController {
     private static final String PRIKEY = "";//私钥(从点触官网获取)
     
     /**
+     * @throws TouclickException 
     * @Title: verify
     * @Description: 服务端请求TouClick二次验证
     * @param @param request
@@ -35,18 +36,17 @@ public class TouclickController {
     * @throws
      */
     @RequestMapping(value = "/verify",method = RequestMethod.POST)
-    public void  verify(final HttpServletRequest request,HttpServletResponse response){
-    	
+    public void  verify(final HttpServletRequest request,HttpServletResponse response) throws TouclickException{
+    	/*
+    	*  token 二次验证口令，单次有效
+    	*  checkAddress 二次验证地址，二级域名
+    	*  checkCode 校验码，开发者自定义，一般采用手机号或者用户ID，用来更细致的频次控制
+    	*/
         String checkAddress = request.getParameter("checkAddress");
         String token = request.getParameter("token");
         //一次验证传递的参数,同一次验证一样
         String checkCode = request.getParameter("checkCode");
-        Status status = null;
-        try {
-            status = touclick.check(checkCode,checkAddress,token,PUBKEY,PRIKEY);
-        } catch (TouclickException e) {
-            System.out.println(e);
-        }
+        Status status = touclick.check(checkCode,checkAddress,token,PUBKEY,PRIKEY);
         System.out.println("checkAddress :"+checkAddress + ",token:" + token+ ",checkCode:" + checkCode);
         System.out.println("code :"+status.getCode() + ",message:" + status.getMessage());
         if(status != null && status.getCode()==0){

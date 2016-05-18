@@ -5,12 +5,17 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.apache.log4j.Logger;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.touclick.captcha.exception.TouclickException;
 import com.touclick.captcha.http.HttpClient;
 import com.touclick.captcha.http.Response;
 import com.touclick.captcha.model.Parameter;
+import com.touclick.captcha.model.Result;
 import com.touclick.captcha.model.Status;
 import com.touclick.captcha.util.TouclickUtil;
 
@@ -20,6 +25,9 @@ import com.touclick.captcha.util.TouclickUtil;
 * @author zhanwei
 * @date 2016年5月17日 下午4:37:06
 * @version 1.0
+* 
+* 说明：
+* 	请求点触服务器进行二次验证
  */
 public class TouClick implements Serializable {
     private static final Logger LOGGER = Logger.getLogger(TouClick.class);
@@ -33,9 +41,9 @@ public class TouClick implements Serializable {
     /**
      * 请求二次验证, 服务端验证
      *
-     * @param checkCode 一次验证携带的参数,与一次验证相同.(非必需,可为"")
-     * @param checkAddress  一次验证返回的checkAddress
-     * @param token     一次验证返回的token
+     * @param checkCode 校验码，开发者自定义，一般采用手机号或者用户ID，用来更细致的频次控制
+     * @param checkAddress  二次验证地址，二级域名
+     * @param token     二次验证口令，单次有效
      * @param pubKey    公钥
      * @param priKey    私钥
      * @return Status   返回类型
@@ -48,9 +56,9 @@ public class TouClick implements Serializable {
     /**
      * 请求二次验证, 服务端验证
      *
-     * @param checkCode 一次验证携带的参数,与一次验证相同.(非必需,可为"")
-     * @param checkAddress  一次验证返回的checkAddress
-     * @param token     一次验证返回的token
+     * @param checkCode 校验码，开发者自定义，一般采用手机号或者用户ID，用来更细致的频次控制
+     * @param checkAddress  二次验证地址，二级域名
+     * @param token     二次验证口令，单次有效
      * @param pubKey    公钥
      * @param priKey    私钥
      * @param userName  请求用户名 用于统计分析
@@ -66,6 +74,12 @@ public class TouClick implements Serializable {
                 || token == null || "".equals(token)) {
             throw new TouclickException("参数有误");
         }
+        Pattern pattern = Pattern.compile("^[_\\-0-9a-zA-Z]+$");
+        Matcher matcher = pattern.matcher(checkAddress);
+        if(!matcher.matches()){
+        	return new Status(Status.CHECKADDRESS_ERROR, Status.getCause(Status.CHECKADDRESS_ERROR));
+        }
+        
         List<Parameter> params = new ArrayList<Parameter>();
         params.add(new Parameter("ckcode", checkCode));
         params.add(new Parameter("i", token));
@@ -91,9 +105,19 @@ public class TouClick implements Serializable {
         ObjectMapper mapper = new ObjectMapper();
         if (response != null) {
             Status status = null;
+            Result result = null;
             try {
-                status = mapper.readValue(response.getInfo(), Status.class);
-                return status;
+            	System.out.println("info:"+response.getInfo());
+            	result = mapper.readValue(response.getInfo(), Result.class);
+                if(result.getCode() == 0){
+                	if(result.getSign() != null && !"".equals(result.getSign())
+                			&& result.getSign().equals(buildSign(result.getCode(),result.getTimestamp(),priKey))){
+                		return new Status(result.getCode(),result.getMessage());
+                	}else{
+                		return new Status(Status.SIGN_ERROR, Status.getCause(Status.SIGN_ERROR));
+                	}
+                }
+                return new Status(result.getCode(),result.getMessage());
             } catch (Exception e) {
                 LOGGER.error("transfer json error ..", e);
             }
@@ -101,5 +125,12 @@ public class TouClick implements Serializable {
         }
         return new Status(Status.STATUS_HTTP_ERROR, Status.getCause(Status.STATUS_HTTP_ERROR));
     }
+
+	private String buildSign(int code, long timestamp, String priKey) {
+		List<Parameter> params = new ArrayList<Parameter>();
+		params.add(new Parameter("code", code));
+		params.add(new Parameter("timestamp", timestamp));
+		return TouclickUtil.buildMysign(params, priKey);
+	}
 
 }
