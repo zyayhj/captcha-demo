@@ -30,7 +30,8 @@ class TouclickLib(object):
         "STATUS_SERVER_ERROR": (8, "点触服务器异常"),
         "STATUS_HTTP_ERROR": (9, "http请求异常"),
         "STATUS_JSON_TRANS_ERROR": (10, "json转换异常,可能是请求地址有误,请检查请求地址(http://[checkAddress].touclick.com/sverify.touclick?参数)"),
-        "STATUS_CHECKADDRESS_ERROR": (11, "二次验证地址不合法")
+        "STATUS_CHECKADDRESS_ERROR": (11, "二次验证地址不合法"),
+        "STATUS_SIGN_ERROR": (12, "签名校验失败,数据可能被篡改")
     }
 
     HTTP = "http://"
@@ -57,7 +58,7 @@ class TouclickLib(object):
                 (0, "")
                 (3, "一次验证返回的token为必需参数,不可为空")
         """
-        
+
         if check_address == None or self.ADDR_PATTERN.match(check_address) == None:
             return self.STATUS["STATUS_CHECKADDRESS_ERROR"]
 
@@ -70,9 +71,14 @@ class TouclickLib(object):
             if response.status_code == requests.codes.ok:
                 try:
                     result = json.loads(response.text)
+                    result_params = {"code": result["code"], "timestamp": result["timestamp"]}
+                    if (result["code"] == 0) \
+                        and ("sign" not in result \
+                            or result["sign"] != self._sign(result_params, self.pri_key)):
+                        return self.STATUS["STATUS_SIGN_ERROR"]
                     return (result["code"], result["message"])
                 except:
-                    return self.STATUS["STATUS_JSON_TRANS_ERROR"];
+                    return self.STATUS["STATUS_JSON_TRANS_ERROR"]
             else:
                 return self.STATUS["STATUS_HTTP_ERROR"]
         except:
