@@ -10,10 +10,9 @@ import (
 )
 
 var htmlFileName = "static/login.html"
-var VERSION = "5.1.0"
 var URL = "http://js.touclick.com/sdk/version/notify"
-var pubKey = "c39469b6-e947-4480-ba06-ad0cf0a70f85"
-var priKey = "15f1d6c3-7a87-441d-ad9d-c6a9014c7ccb"
+var pubKey = "你的公钥（官网申请）"
+var priKey = "你的私钥（官网申请）"
 var tc = touclick.NewTouclick(pubKey,priKey)
 
 func indexHandler(w http.ResponseWriter,req *http.Request){
@@ -39,7 +38,7 @@ func verifyHandler(w http.ResponseWriter, req *http.Request){
   status := tc.Check(check_code,check_address,token,user_name,user_id)
   // Success, todo
   if status.Code == 0 {
-     //Todo
+     //Todo, your own business
   }
   fmt.Println("code: " + strconv.Itoa(status.Code) + ", msg: " + status.Msg)
   w.Write([]byte("code: " + strconv.Itoa(status.Code) + ", msg: " + status.Msg))

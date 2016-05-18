@@ -8,6 +8,7 @@ import (
   "sort"
   "encoding/json"
   "regexp"
+  "strconv"
 )
 
 const(
@@ -24,8 +25,15 @@ type Touclick struct{
 }
 
 type Status struct{
-  Code int  `json:code`
-  Msg string  `json:message`
+  Code int
+  Msg string
+}
+
+type result struct {
+  Code int  `json:"code"`
+  Message string `json:"message"`
+  Timestamp int64  `json:"timestamp"`
+  Sign string `json:"sign"`
 }
 
 var StatusMap = make(map[string]*Status)
@@ -43,7 +51,7 @@ func init(){
   StatusMap["STATUS_HTTP_ERROR"] = &Status{Code : 9, Msg : "http请求异常"}
   StatusMap["STATUS_JSON_TRANS_ERROR"] = &Status{Code : 10, Msg : "json转换异常,可能是请求地址有误,请检查请求地址(http://[checkAddress].touclick.com/sverify.touclick?参数)"}
   StatusMap["STATUS_CHECKADDRESS_ERROR"] = &Status{Code : 11, Msg : "二次验证地址不合法"}
-
+  StatusMap["SIGN_ERROR"] = &Status{Code : 12, Msg : "签名校验失败,数据可能被篡改"}
   checkAddressPattern,_ = regexp.Compile("^[_\\-0-9a-zA-Z]+$")
 }
 
@@ -64,7 +72,7 @@ func NewTouclick(pubKey,priKey string) *Touclick{
  * @Param user_id 用户ID，可选
  * @Return 返回Status
  */
-func (t *Touclick) Check(check_code string,check_address string,token string,user_name string,user_id string) *Status {
+func (t *Touclick) Check(check_code,check_address,token,user_name,user_id string) *Status {
 
   if !checkAddressPattern.MatchString(check_address){
     return StatusMap["STATUS_CHECKADDRESS_ERROR"]
@@ -92,11 +100,24 @@ func (t *Touclick) Check(check_code string,check_address string,token string,use
   if err != nil{
     return StatusMap["STATUS_HTTP_ERROR"]
   }
-  var s Status
-  if err := json.Unmarshal(body,&s); err != nil{
+  var r result
+  if err := json.Unmarshal(body,&r); err != nil{
     return StatusMap["STATUS_JSON_TRANS_ERROR"]
   }
-  return &s
+  if r.Code == 0{
+    if l := len(r.Sign); l != 0{
+      retParams := map[string]string{
+        "code" : strconv.Itoa(r.Code),
+        "timestamp" : strconv.FormatInt(r.Timestamp,10),
+      }
+      sign := _sign(retParams,t.priKey)
+      if sign == r.Sign{
+        return &Status{Code : r.Code,Msg : r.Message}
+      }
+      return StatusMap["SIGN_ERROR"]
+    }
+  }
+  return &Status{Code: r.Code, Msg : r.Message}
 }
 
 func makeUrlParam(params map[string]string) string{
