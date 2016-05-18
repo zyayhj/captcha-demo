@@ -15,8 +15,10 @@ if (!preg_match('/^[\w\-]/',$checkAddress)){
 	exit('参数格式不正确');
 }
 /*$PUBKEY 、 $PRIKEY 从http://admin.touclick.com注册获取 */
-$PUBKEY = "c39469b6-e947-4480-ba06-ad0cf0a70f85";
-$PRIKEY = "15f1d6c3-7a87-441d-ad9d-c6a9014c7ccb";
+// $PUBKEY = "c39469b6-e947-4480-ba06-ad0cf0a70f85";
+// $PRIKEY = "15f1d6c3-7a87-441d-ad9d-c6a9014c7ccb";
+$PUBKEY = '';
+$PRIKEY = '';
 
 $touclick = new TouClick($PUBKEY,$PRIKEY);
 $res = $touclick->check($checkCode, $checkAddress, $token);
