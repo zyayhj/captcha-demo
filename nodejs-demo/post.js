@@ -10,7 +10,6 @@ var touclickSdk = require('touclick-nodejs-sdk');
 
 /**
  * 请于http://admin.touclick.com 注册以获取公钥与私钥
- * 
  */
 var pubkey = "",
 	prikey = "";
