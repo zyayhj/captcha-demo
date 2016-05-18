@@ -37,8 +37,8 @@ $ go run activate.go
   
   import touclick
   
-  # pub_key 是你的公钥
-  # pri_key 是你的私钥
+  //pub_key 是你的公钥
+  //pri_key 是你的私钥
   var tc = touclick.NewTouclick(pub_key, pri_key)
   ```
 
