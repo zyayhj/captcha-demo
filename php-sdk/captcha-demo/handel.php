@@ -22,9 +22,9 @@ $touclick = new TouClick($PUBKEY,$PRIKEY);
 $res = $touclick->check($checkCode, $checkAddress, $token);
 
 //$res['code'] 的详细说明请看README.md
-if ($res ['code'] === 0) {
-	exit('验证成功');
+if ($res) {
+	var_dump ($res);
 } else {
-	exit($res ['message']);
+	var_dump('验证成功');
 }
 ?>
