@@ -32,8 +32,7 @@ class TouclickLib(object):
         "STATUS_HTTP_ERROR": (9, "http请求异常"),
         "STATUS_JSON_TRANS_ERROR": (10, "json转换异常,可能是请求地址有误,请检查请求地址(http://[checkAddress].touclick.com/sverify.touclick?参数)"),
         "STATUS_CHECKADDRESS_ERROR": (11, "二次验证地址不合法"),
-        "STATUS_SIGN_ERROR": (12, "签名校验失败,数据可能被篡改"),
-        "STATUS_RAN_ERROR": (13, "随机数不可为空")
+        "STATUS_SIGN_ERROR": (12, "签名校验失败,数据可能被篡改")
     }
 
     HTTP = "http://"
