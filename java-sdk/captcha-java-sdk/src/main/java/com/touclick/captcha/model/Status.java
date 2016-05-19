@@ -16,6 +16,7 @@ public class Status {
     public static final int CHECKADDRESS_ERROR = 11;//二次验证地址不合法
     public static final int SIGN_ERROR = 12;//签名校验失败,数据可能被篡改
     
+    
     private int code;
 
     private String message;

@@ -49,7 +49,7 @@
    </servlet-mapping>
    ```
 
-3. 启动自动的项目访问`http://localhost:8080/项目名/activate.do`
+3. 启动项目访问`http://localhost:8080/项目名/activate.do`
 
    说明:端口号不一定是8080,依自己项目所使用的服务器为准;路径依自己放置的路径为准
 
@@ -96,5 +96,4 @@
   (10, "json转换异常,可能是请求地址有误,请检查请求地址(http://[checkAddress].touclick.com/sverify.touclick?参数)")
   (11, "二次验证地址不合法")
   (12, "签名校验失败,数据可能被篡改")
-  (13, "随机数不可为空")
   ```
