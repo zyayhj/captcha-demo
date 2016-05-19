@@ -17,7 +17,7 @@ class TouClick{
 	 * @return :验证成功 或 array(2) { ["code"]=> int(1) ["message"]=> string(23) "二次验证token失效" } 
 	 */
 	public function check($checkCode, $checkAddress, $token, $userName = '', $userId = 0) {
-		if (empty ( $checkAddress ) || empty ( $token )) {
+		if (empty ($checkAddress) || empty ($token) || empty($this->prikey) || empty($this->pubkey)) {
 			exit ( '参数为空' );
 		}
 		if (!preg_match('/^[\w\-]/',$checkAddress)){
