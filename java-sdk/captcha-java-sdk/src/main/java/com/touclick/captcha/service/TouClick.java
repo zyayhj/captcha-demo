@@ -107,7 +107,6 @@ public class TouClick implements Serializable {
         }
         ObjectMapper mapper = new ObjectMapper();
         if (response != null) {
-            Status status = null;
             Result result = null;
             try {
             	System.out.println("info:"+response.getInfo());
