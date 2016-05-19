@@ -29,6 +29,7 @@ class TouClick{
 		$params ['ip'] = @gethostbyname ( $_ENV ['COMPUTERNAME'] );
 		$params ['i'] = $token;
 		$params ['b'] = $this->pubkey;
+		$params ['ran'] = md5(strtotime('now'));
 		$sign = $this->getSign ( $params, $this->prikey );
 		$params ['sign'] = $sign;
 		$paramStr = $this->getStr ( $params );
@@ -45,13 +46,13 @@ class TouClick{
 		$check = is_object(json_decode($result)) ? get_object_vars(json_decode($result)) : json_decode($result);
 		if ($check['code'] == 0) {
 			$checkParam['code'] = $check['code'];
-			$checkParam['timestamp'] = $check['timestamp'];
+			$checkParam['timestamp'] = $params ['ran'];
 			$sign = $this->getSign($checkParam, $this->prikey);
 			if ($sign == $check['sign']) {
 				return 0;
 			} else {
 				$res['code'] = 12;
-				$res['message'] = '';
+				$res['message'] = '签名校验失败,数据可能被篡改';
 				return $res;
 			}
 		} else {
