@@ -2,6 +2,13 @@
 
 详情请关注各语言sdk
 
+[![image](https://raw.githubusercontent.com/zyayhj/captcha-demo/master/images/JAVA4.png)](https://github.com/zyayhj/captcha-demo/tree/master/java-sdk)
+[![image](https://raw.githubusercontent.com/zyayhj/captcha-demo/master/images/PHP4.png)](https://github.com/zyayhj/captcha-demo/tree/master/php-sdk)
+[![image](https://raw.githubusercontent.com/zyayhj/captcha-demo/master/images/python4.png)](https://github.com/zyayhj/captcha-demo/tree/master/python-sdk)
+[![image](https://raw.githubusercontent.com/zyayhj/captcha-demo/master/images/GO4.png)](https://github.com/zyayhj/captcha-demo/tree/master/go-sdk)
+[![image](https://raw.githubusercontent.com/zyayhj/captcha-demo/master/images/JS4.png)](https://github.com/zyayhj/captcha-demo/tree/master/nodejs-demo)
+
+
 # JavaScript Lib 
 
 点触 JavaScript Lib 地址均为云端地址, http://js.touclick.com/js.touclick?b=公钥 (从http://www.touclick.com 注册获取)
@@ -18,7 +25,6 @@ README-jslib.txt 是 JavaScript Lib 文档
 拖动旋转
 
 ![image](https://raw.githubusercontent.com/zyayhj/captcha-demo/master/images/rotate.png)
-![image](https://raw.githubusercontent.com/zyayhj/captcha-demo/master/images/block.png)
 
 图标点击
 
@@ -29,6 +35,6 @@ README-jslib.txt 是 JavaScript Lib 文档
 ![image](https://raw.githubusercontent.com/zyayhj/captcha-demo/master/images/classical_new.png)
 
 
-[![image](https://raw.githubusercontent.com/zyayhj/captcha-demo/master/images/rotate.png)](http://www.touclick.com)
+
 
 

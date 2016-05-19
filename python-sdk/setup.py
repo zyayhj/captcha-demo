@@ -13,7 +13,7 @@ if __name__ == "__main__":
         name="touclick",
         version="1.1.0",
         packages=['captcha-python-sdk'],
-				url='https://github.com/touclick/captcha-demo',
+        url='https://github.com/touclick/captcha-demo',
         license='',
         author='touclick',
         author_email='yuanshichao@touclick.com',
