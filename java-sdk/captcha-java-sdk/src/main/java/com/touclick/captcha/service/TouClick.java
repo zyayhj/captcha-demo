@@ -5,6 +5,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -91,6 +92,8 @@ public class TouClick implements Serializable {
         }
         params.add(new Parameter("un", userName));
         params.add(new Parameter("ud", userId));
+        String ran = UUID.randomUUID().toString();
+        params.add(new Parameter("ran", ran));
         String sign = TouclickUtil.buildMysign(params, priKey);
         StringBuilder url = new StringBuilder();
         url.append(HTTP).append(checkAddress).append(POSTFIX);
@@ -111,7 +114,7 @@ public class TouClick implements Serializable {
             	result = mapper.readValue(response.getInfo(), Result.class);
                 if(result.getCode() == 0){
                     if(result.getSign() != null && !"".equals(result.getSign())
-                	        && result.getSign().equals(buildSign(result.getCode(),result.getTimestamp(),priKey))){
+                	        && result.getSign().equals(buildSign(result.getCode(),ran,priKey))){
                         return new Status(result.getCode(),result.getMessage());
                     }else{
     	      	        return new Status(Status.SIGN_ERROR, Status.getCause(Status.SIGN_ERROR));
@@ -126,11 +129,11 @@ public class TouClick implements Serializable {
         return new Status(Status.STATUS_HTTP_ERROR, Status.getCause(Status.STATUS_HTTP_ERROR));
     }
 
-    private String buildSign(int code, long timestamp, String priKey) {
-	List<Parameter> params = new ArrayList<Parameter>();
-	params.add(new Parameter("code", code));
-	params.add(new Parameter("timestamp", timestamp));
-	return TouclickUtil.buildMysign(params, priKey);
+    private String buildSign(int code, String ran, String priKey) {
+        List<Parameter> params = new ArrayList<Parameter>();
+	    params.add(new Parameter("code", code));
+	    params.add(new Parameter("timestamp", ran));
+	    return TouclickUtil.buildMysign(params, priKey);
     }
 
 }
