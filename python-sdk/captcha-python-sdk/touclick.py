@@ -4,6 +4,7 @@ import random
 import json
 import requests
 import re
+import string
 from hashlib import md5
 
 
@@ -31,13 +32,15 @@ class TouclickLib(object):
         "STATUS_HTTP_ERROR": (9, "http请求异常"),
         "STATUS_JSON_TRANS_ERROR": (10, "json转换异常,可能是请求地址有误,请检查请求地址(http://[checkAddress].touclick.com/sverify.touclick?参数)"),
         "STATUS_CHECKADDRESS_ERROR": (11, "二次验证地址不合法"),
-        "STATUS_SIGN_ERROR": (12, "签名校验失败,数据可能被篡改")
+        "STATUS_SIGN_ERROR": (12, "签名校验失败,数据可能被篡改"),
+        "STATUS_RAN_ERROR": (13, "随机数不可为空")
     }
 
     HTTP = "http://"
     POSTFIX = ".touclick.com/sverify.touclick"
 
     ADDR_PATTERN = re.compile(r'^[_\-0-9a-zA-Z]+$')
+    RAN_LETTERS = string.digits + string.ascii_uppercase + string.ascii_lowercase
 
     def __init__(self, pub_key, pri_key):
         assert pub_key != None and pub_key != ""
@@ -62,8 +65,9 @@ class TouclickLib(object):
         if check_address == None or self.ADDR_PATTERN.match(check_address) == None:
             return self.STATUS["STATUS_CHECKADDRESS_ERROR"]
 
+        ran = self._ran_string(32)
         params = {"ckcode": check_code, "i": token, "b": self.pub_key,
-                    "un": user_name, "ud": user_id, "ip": ""}
+                    "un": user_name, "ud": user_id, "ip": "", "ran": ran}
         params["sign"] = self._sign(params, self.pri_key)
         url = self.HTTP + check_address + self.POSTFIX
         try:
@@ -71,7 +75,7 @@ class TouclickLib(object):
             if response.status_code == requests.codes.ok:
                 try:
                     result = json.loads(response.text)
-                    result_params = {"code": result["code"], "timestamp": result["timestamp"]}
+                    result_params = {"code": result["code"], "timestamp": ran}
                     if (result["code"] == 0) \
                         and ("sign" not in result \
                             or result["sign"] != self._sign(result_params, self.pri_key)):
@@ -90,3 +94,6 @@ class TouclickLib(object):
         text = text + key
         m = md5(text.encode("utf-8"))
         return m.hexdigest()
+
+    def _ran_string(self, n):
+        return "".join(random.choice(self.RAN_LETTERS) for _ in range(n))
