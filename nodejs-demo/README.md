@@ -44,7 +44,6 @@
 	```bash
 	$ cd nodejs-demo/activate
 	$ node activate.js #务必在 nodejs-demo/activate 下执行
-	$ git clone https://github.com/touclick/captcha-demo
 	```
 
 	浏览器访问 `http://127.0.0.1:3000/`, 按照页面提示进行激活，激活成功后，退出`node`
