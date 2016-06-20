@@ -35,7 +35,7 @@ public class TouClick implements Serializable {
 
     private static final long serialVersionUID = -176092625883595547L;
     private static final String HTTP = "http://";
-    private static final String POSTFIX = ".touclick.com/sverify.touclick";
+    private static final String POSTFIX = ".touclick.com/sverify.touclick.behavior";
 
     private HttpClient client = new HttpClient();
 
@@ -50,8 +50,8 @@ public class TouClick implements Serializable {
      * @return Status   返回类型
      * @throws TouclickException
      */
-    public Status check(String checkCode, String checkAddress, String token,String pubKey,String priKey) throws TouclickException {
-        return this.check(checkCode, checkAddress, token, pubKey, priKey, "", "");
+    public Status check(String checkCode, String checkAddress, String token,String deviceId,String pubKey,String priKey) throws TouclickException {
+        return this.check(checkCode, checkAddress, token, deviceId,pubKey, priKey, "", "");
     }
 
     /**
@@ -67,12 +67,13 @@ public class TouClick implements Serializable {
      * @return Status    返回类型
      * @throws TouclickException
      */
-    public Status check(String checkCode, String checkAddress, String token,String pubKey,String priKey, String userName, String userId) throws TouclickException {
+    public Status check(String checkCode, String checkAddress, String token,String deviceId,String pubKey,String priKey, String userName, String userId) throws TouclickException {
         if (checkCode == null
                 || checkAddress == null || "".equals(checkAddress)
                 || pubKey == null || "".equals(pubKey)
                 || priKey == null || "".equals(priKey)
-                || token == null || "".equals(token)) {
+                || token == null || "".equals(token)
+                || deviceId == null || "".equals(deviceId)) {
             throw new TouclickException("参数有误");
         }
         Pattern pattern = Pattern.compile("^[_\\-0-9a-zA-Z]+$");
@@ -98,6 +99,7 @@ public class TouClick implements Serializable {
         StringBuilder url = new StringBuilder();
         url.append(HTTP).append(checkAddress).append(POSTFIX);
         params.add(new Parameter("sign", sign));
+        params.add(new Parameter("di",deviceId));
         Response response = null;
         System.out.println(url);
         try {
@@ -126,6 +128,30 @@ public class TouClick implements Serializable {
             return new Status(Status.STATUS_JSON_TRANS_ERROR, Status.getCause(Status.STATUS_JSON_TRANS_ERROR));
         }
         return new Status(Status.STATUS_HTTP_ERROR, Status.getCause(Status.STATUS_HTTP_ERROR));
+    }
+
+    public void callback(String checkAddress, String token) throws TouclickException {
+            if (checkAddress == null || "".equals(checkAddress)
+                || token == null || "".equals(token)) {
+            throw new TouclickException("参数有误");
+        }
+        Pattern pattern = Pattern.compile("^[_\\-0-9a-zA-Z]+$");
+        Matcher matcher = pattern.matcher(checkAddress);
+        if(!matcher.matches()){
+            return;
+        }
+
+        List<Parameter> params = new ArrayList<Parameter>();
+        params.add(new Parameter("t",token));
+
+        StringBuilder url = new StringBuilder();
+        url.append(HTTP).append(checkAddress).append(".touclick.com/callback");
+        LOGGER.info(url.toString());
+        try {
+            client.get(url.toString(), params);
+        } catch (TouclickException e1) {
+            LOGGER.error(e1.getMessage());
+        }
     }
 
     private String buildSign(int code, String ran, String priKey) {
