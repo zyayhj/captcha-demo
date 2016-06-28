@@ -35,7 +35,8 @@ public class TouClick implements Serializable {
 
     private static final long serialVersionUID = -176092625883595547L;
     private static final String HTTP = "http://";
-    private static final String POSTFIX = ".touclick.com/sverify.touclick.behavior";
+    private static final String CHECK_POSTFIX = ".touclick.com/sverify.touclick2";
+    private static final String CALLBACK_POSTFIX = ".touclick.com/callback";
 
     private HttpClient client = new HttpClient();
 
@@ -50,8 +51,8 @@ public class TouClick implements Serializable {
      * @return Status   返回类型
      * @throws TouclickException
      */
-    public Status check(String checkCode, String checkAddress, String token,String deviceId,String pubKey,String priKey) throws TouclickException {
-        return this.check(checkCode, checkAddress, token, deviceId,pubKey, priKey, "", "");
+    public Status check(String checkCode, String checkAddress, String token,String pubKey,String priKey) throws TouclickException {
+        return this.check(checkCode, checkAddress, token,pubKey, priKey, "", "");
     }
 
     /**
@@ -67,13 +68,12 @@ public class TouClick implements Serializable {
      * @return Status    返回类型
      * @throws TouclickException
      */
-    public Status check(String checkCode, String checkAddress, String token,String deviceId,String pubKey,String priKey, String userName, String userId) throws TouclickException {
+    public Status check(String checkCode, String checkAddress, String token,String pubKey,String priKey, String userName, String userId) throws TouclickException {
         if (checkCode == null
                 || checkAddress == null || "".equals(checkAddress)
                 || pubKey == null || "".equals(pubKey)
                 || priKey == null || "".equals(priKey)
-                || token == null || "".equals(token)
-                || deviceId == null || "".equals(deviceId)) {
+                || token == null || "".equals(token)) {
             throw new TouclickException("参数有误");
         }
         Pattern pattern = Pattern.compile("^[_\\-0-9a-zA-Z]+$");
@@ -97,9 +97,8 @@ public class TouClick implements Serializable {
         params.add(new Parameter("ran", ran));
         String sign = TouclickUtil.buildMysign(params, priKey);
         StringBuilder url = new StringBuilder();
-        url.append(HTTP).append(checkAddress).append(POSTFIX);
+        url.append(HTTP).append(checkAddress).append(CHECK_POSTFIX);
         params.add(new Parameter("sign", sign));
-        params.add(new Parameter("di",deviceId));
         Response response = null;
         System.out.println(url);
         try {
@@ -130,28 +129,73 @@ public class TouClick implements Serializable {
         return new Status(Status.STATUS_HTTP_ERROR, Status.getCause(Status.STATUS_HTTP_ERROR));
     }
 
-    public void callback(String checkAddress, String token) throws TouclickException {
-            if (checkAddress == null || "".equals(checkAddress)
+    /**
+     * 用户名密码校验后的回调方法
+     *
+     * @param checkAddress  二次验证地址，二级域名
+     * @param token     二次验证口令，单次有效
+     * @param pubKey    公钥
+     * @param priKey    私钥
+     * @param isLoginSucc 用户名和密码是否校验成功
+     * @return Status    返回类型
+     * @throws TouclickException
+     */
+    public Status callback(String checkAddress, String token,String pubKey,String priKey,boolean isLoginSucc) throws TouclickException {
+        if (checkAddress == null || "".equals(checkAddress)
+                || pubKey == null || "".equals(pubKey)
+                || priKey == null || "".equals(priKey)
                 || token == null || "".equals(token)) {
             throw new TouclickException("参数有误");
         }
         Pattern pattern = Pattern.compile("^[_\\-0-9a-zA-Z]+$");
         Matcher matcher = pattern.matcher(checkAddress);
         if(!matcher.matches()){
-            return;
+            return new Status(Status.CHECKADDRESS_ERROR, Status.getCause(Status.CHECKADDRESS_ERROR));
         }
 
         List<Parameter> params = new ArrayList<Parameter>();
-        params.add(new Parameter("t",token));
-
-        StringBuilder url = new StringBuilder();
-        url.append(HTTP).append(checkAddress).append(".touclick.com/callback");
-        LOGGER.info(url.toString());
+        params.add(new Parameter("i", token));
+        params.add(new Parameter("b", pubKey));
         try {
-            client.get(url.toString(), params);
+            params.add(new Parameter("ip", InetAddress.getLocalHost().getHostAddress()));
+        } catch (UnknownHostException e) {
+
+        }
+        params.add(new Parameter("su", isLoginSucc ? "1" : "0"));
+        String ran = UUID.randomUUID().toString();
+        params.add(new Parameter("ran", ran));
+        String sign = TouclickUtil.buildMysign(params, priKey);
+        StringBuilder url = new StringBuilder();
+        url.append(HTTP).append(checkAddress).append(CALLBACK_POSTFIX);
+        params.add(new Parameter("sign", sign));
+        Response response = null;
+        System.out.println(url);
+        try {
+            response = client.get(url.toString(), params);
         } catch (TouclickException e1) {
             LOGGER.error(e1.getMessage());
         }
+        ObjectMapper mapper = new ObjectMapper();
+        if (response != null) {
+            Result result = null;
+            try {
+                System.out.println("info:"+response.getInfo());
+                result = mapper.readValue(response.getInfo(), Result.class);
+                if(result.getCode() == 0){
+                    if(result.getSign() != null && !"".equals(result.getSign())
+                            && result.getSign().equals(buildSign(result.getCode(),ran,priKey))){
+                        return new Status(result.getCode(),result.getMessage());
+                    }else{
+                        return new Status(Status.SIGN_ERROR, Status.getCause(Status.SIGN_ERROR));
+                    }
+                }
+                return new Status(result.getCode(),result.getMessage());
+            } catch (Exception e) {
+                LOGGER.error("transfer json error ..", e);
+            }
+            return new Status(Status.STATUS_JSON_TRANS_ERROR, Status.getCause(Status.STATUS_JSON_TRANS_ERROR));
+        }
+        return new Status(Status.STATUS_HTTP_ERROR, Status.getCause(Status.STATUS_HTTP_ERROR));
     }
 
     private String buildSign(int code, String ran, String priKey) {
