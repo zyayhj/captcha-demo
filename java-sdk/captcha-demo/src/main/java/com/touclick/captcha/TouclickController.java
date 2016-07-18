@@ -46,7 +46,8 @@ public class TouclickController {
         String token = request.getParameter("token");
         //一次验证传递的参数,同一次验证一样
         String checkCode = request.getParameter("checkCode");
-        Status status = touclick.check(checkCode,checkAddress,token,PUBKEY,PRIKEY);
+        String sid = request.getParameter("sid");
+        Status status = touclick.check(checkCode,checkAddress,sid,token,PUBKEY,PRIKEY);
         System.out.println("checkAddress :"+checkAddress + ",token:" + token+ ",checkCode:" + checkCode);
         System.out.println("code :"+status.getCode() + ",message:" + status.getMessage());
         if(status != null && status.getCode()==0){
