@@ -8,9 +8,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import org.apache.log4j.Logger;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.touclick.captcha.exception.TouclickException;
 import com.touclick.captcha.http.HttpClient;
@@ -43,7 +41,6 @@ public class TouClick implements Serializable {
     /**
      * 请求二次验证, 服务端验证
      *
-     * @param checkCode 校验码，开发者自定义，一般采用手机号或者用户ID，用来更细致的频次控制
      * @param checkAddress  二次验证地址，二级域名
      * @param sid session id
      * @param token     二次验证口令，单次有效
@@ -52,14 +49,13 @@ public class TouClick implements Serializable {
      * @return Status   返回类型
      * @throws TouclickException
      */
-    public Status check(String checkCode, String checkAddress, String sid,String token,String pubKey,String priKey) throws TouclickException {
-        return this.check(checkCode, checkAddress,sid, token,pubKey, priKey, "", "");
+    public Status check(String checkAddress, String sid,String token,String pubKey,String priKey) throws TouclickException {
+        return this.check(checkAddress,sid, token,pubKey, priKey, "", "");
     }
 
     /**
      * 请求二次验证, 服务端验证
      *
-     * @param checkCode 校验码，开发者自定义，一般采用手机号或者用户ID，用来更细致的频次控制
      * @param checkAddress  二次验证地址，二级域名
      * @param token     二次验证口令，单次有效
      * @param sid session id
@@ -70,9 +66,8 @@ public class TouClick implements Serializable {
      * @return Status    返回类型
      * @throws TouclickException
      */
-    public Status check(String checkCode, String checkAddress, String sid,String token,String pubKey,String priKey, String userName, String userId) throws TouclickException {
-        if (checkCode == null
-                || checkAddress == null || "".equals(checkAddress)
+    public Status check(String checkAddress, String sid,String token,String pubKey,String priKey, String userName, String userId) throws TouclickException {
+        if (checkAddress == null || "".equals(checkAddress)
                 || pubKey == null || "".equals(pubKey)
                 || priKey == null || "".equals(priKey)
                 || token == null || "".equals(token)
@@ -82,18 +77,17 @@ public class TouClick implements Serializable {
         Pattern pattern = Pattern.compile("^[_\\-0-9a-zA-Z]+$");
         Matcher matcher = pattern.matcher(checkAddress);
         if(!matcher.matches()){
-            return new Status(Status.CHECKADDRESS_ERROR, Status.getCause(Status.CHECKADDRESS_ERROR));
+            return new Status(Status.CHECKADDRESS_ERROR,"0", Status.getCause(Status.CHECKADDRESS_ERROR));
         }
         
         List<Parameter> params = new ArrayList<Parameter>();
-        params.add(new Parameter("ckcode", checkCode));
         params.add(new Parameter("i", token));
         params.add(new Parameter("b", pubKey));
         params.add(new Parameter("s",sid));
         try {
             params.add(new Parameter("ip", InetAddress.getLocalHost().getHostAddress()));
         } catch (UnknownHostException e) {
-
+        	System.out.println(""+e);
         }
         params.add(new Parameter("un", userName));
         params.add(new Parameter("ud", userId));
@@ -108,6 +102,7 @@ public class TouClick implements Serializable {
         try {
             response = client.get(url.toString(), params);
         } catch (TouclickException e1) {
+        	System.out.println(e1.getMessage());
             LOGGER.error(e1.getMessage());
         }
         ObjectMapper mapper = new ObjectMapper();
@@ -119,18 +114,19 @@ public class TouClick implements Serializable {
                 if(result.getCode() == 0){
                     if(result.getSign() != null && !"".equals(result.getSign())
                 	        && result.getSign().equals(buildSign(result.getCode(),ran,priKey))){
-                        return new Status(result.getCode(),result.getMessage());
+                        return new Status(result.getCode(),result.getCkCode(),result.getMessage());
                     }else{
-    	      	        return new Status(Status.SIGN_ERROR, Status.getCause(Status.SIGN_ERROR));
+    	      	        return new Status(Status.SIGN_ERROR,result.getCkCode(), Status.getCause(Status.SIGN_ERROR));
                     }
                 }
-                return new Status(result.getCode(),result.getMessage());
+                return new Status(result.getCode(),result.getCkCode(),result.getMessage());
             } catch (Exception e) {
+            	System.out.println("transfer json error .."+e);
                 LOGGER.error("transfer json error ..", e);
             }
-            return new Status(Status.STATUS_JSON_TRANS_ERROR, Status.getCause(Status.STATUS_JSON_TRANS_ERROR));
+            return new Status(Status.STATUS_JSON_TRANS_ERROR,"0", Status.getCause(Status.STATUS_JSON_TRANS_ERROR));
         }
-        return new Status(Status.STATUS_HTTP_ERROR, Status.getCause(Status.STATUS_HTTP_ERROR));
+        return new Status(Status.STATUS_HTTP_ERROR,"0", Status.getCause(Status.STATUS_HTTP_ERROR));
     }
 
     /**
@@ -160,18 +156,18 @@ public class TouClick implements Serializable {
         try {
             params.add(new Parameter("ip", InetAddress.getLocalHost().getHostAddress()));
         } catch (UnknownHostException e) {
-
+        	System.out.println(e);
         }
         params.add(new Parameter("su", isLoginSucc ? "1" : "0"));
         String ran = UUID.randomUUID().toString();
         params.add(new Parameter("ran", ran));
         StringBuilder url = new StringBuilder();
         url.append(HTTP).append(checkAddress).append(CALLBACK_POSTFIX);
-        Response response = null;
         System.out.println(url);
         try {
-            response = client.get(url.toString(), params);
+        	client.get(url.toString(), params);
         } catch (TouclickException e1) {
+        	System.out.println(e1.getMessage());
             LOGGER.error(e1.getMessage());
         }
     }
