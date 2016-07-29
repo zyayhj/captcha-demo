@@ -113,18 +113,20 @@
     <script> 
         TouClick.ready(function(){
             document.getElementById('submit1').onclick = function(){
-                
-                TouClick().start({
-                    modal:true,
-                    position:"center",
-                    fit:true, 
-                    checkCode:document.getElementById("username").value,//可选 
-                    onSuccess : function(obj){
+                TouClick('target1',{
+                    readyCheck:function(){
+                        if(TouClick.$('username').value==''){
+                            return {status:false}
+                        }
+                        return {status:true,checkCode:''}
+                    },
+                    onSuccess:function(obj){
                         document.getElementById("token").value = obj.token;
                         document.getElementById("checkAddress").value = obj.checkAddress;
-                        document.getElementById("checkCode").value = document.getElementById("username").value;//可选
+                        document.getElementById("sid").value = obj.sid;
                         document.getElementById("form").submit();
-                    }
+                    },
+                    behaviorDom:'username'
                 });
             }
         });
