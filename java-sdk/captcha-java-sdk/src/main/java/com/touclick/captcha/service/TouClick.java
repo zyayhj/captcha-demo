@@ -87,7 +87,7 @@ public class TouClick implements Serializable {
         try {
             params.add(new Parameter("ip", InetAddress.getLocalHost().getHostAddress()));
         } catch (UnknownHostException e) {
-        	System.out.println(""+e);
+
         }
         params.add(new Parameter("un", userName));
         params.add(new Parameter("ud", userId));
@@ -98,11 +98,9 @@ public class TouClick implements Serializable {
         url.append(HTTP).append(checkAddress).append(CHECK_POSTFIX);
         params.add(new Parameter("sign", sign));
         Response response = null;
-        System.out.println(url);
         try {
             response = client.get(url.toString(), params);
         } catch (TouclickException e1) {
-        	System.out.println(e1.getMessage());
             LOGGER.error(e1.getMessage());
         }
         ObjectMapper mapper = new ObjectMapper();
@@ -121,7 +119,6 @@ public class TouClick implements Serializable {
                 }
                 return new Status(result.getCode(),result.getCkCode(),result.getMessage());
             } catch (Exception e) {
-            	System.out.println("transfer json error .."+e);
                 LOGGER.error("transfer json error ..", e);
             }
             return new Status(Status.STATUS_JSON_TRANS_ERROR,"0", Status.getCause(Status.STATUS_JSON_TRANS_ERROR));
@@ -138,9 +135,11 @@ public class TouClick implements Serializable {
      * @param isLoginSucc 用户名和密码是否校验成功
      * @throws TouclickException
      */
-    public void callback(String checkAddress,String sid, String token,boolean isLoginSucc) throws TouclickException {
+    public void callback(String checkAddress,String sid, String token,String pubKey,String priKey,boolean isLoginSucc) throws TouclickException {
         if (checkAddress == null || "".equals(checkAddress)
                 || token == null || "".equals(token)
+                || pubKey == null || "".equals(pubKey)
+                || priKey == null || "".equals(priKey)
                 || sid == null || "".equals(sid)) {
             throw new TouclickException("参数有误");
         }
@@ -152,22 +151,26 @@ public class TouClick implements Serializable {
 
         List<Parameter> params = new ArrayList<Parameter>();
         params.add(new Parameter("i", token));
+        params.add(new Parameter("b", pubKey));
         params.add(new Parameter("s",sid));
         try {
             params.add(new Parameter("ip", InetAddress.getLocalHost().getHostAddress()));
         } catch (UnknownHostException e) {
-        	System.out.println(e);
+
         }
         params.add(new Parameter("su", isLoginSucc ? "1" : "0"));
         String ran = UUID.randomUUID().toString();
         params.add(new Parameter("ran", ran));
+
+        String sign = TouclickUtil.buildMysign(params, priKey);
+        params.add(new Parameter("sign", sign));
+
         StringBuilder url = new StringBuilder();
         url.append(HTTP).append(checkAddress).append(CALLBACK_POSTFIX);
-        System.out.println(url);
+
         try {
         	client.get(url.toString(), params);
         } catch (TouclickException e1) {
-        	System.out.println(e1.getMessage());
             LOGGER.error(e1.getMessage());
         }
     }
