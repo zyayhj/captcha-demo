@@ -1,0 +1,9 @@
+c:\users\zhanwei\documents\visual studio 2015\Projects\WebApplication2\WebApplication2\obj\Debug\WebApplication2.csprojResolveAssemblyReference.cache
+c:\users\zhanwei\documents\visual studio 2015\Projects\WebApplication2\WebApplication2\bin\WebApplication2.dll.config
+c:\users\zhanwei\documents\visual studio 2015\Projects\WebApplication2\WebApplication2\bin\WebApplication2.dll
+c:\users\zhanwei\documents\visual studio 2015\Projects\WebApplication2\WebApplication2\bin\WebApplication2.pdb
+c:\users\zhanwei\documents\visual studio 2015\Projects\WebApplication2\WebApplication2\obj\Debug\WebApplication2.dll
+c:\users\zhanwei\documents\visual studio 2015\Projects\WebApplication2\WebApplication2\obj\Debug\WebApplication2.pdb
+C:\Users\zhanwei\Documents\Visual Studio 2015\Projects\WebApplication2\WebApplication2\bin\c#-sdk.dll
+C:\Users\zhanwei\Documents\Visual Studio 2015\Projects\WebApplication2\WebApplication2\bin\LitJson.dll
+C:\Users\zhanwei\Documents\Visual Studio 2015\Projects\WebApplication2\WebApplication2\bin\c#-sdk.pdb
