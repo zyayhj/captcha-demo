@@ -62,24 +62,26 @@
    ```
 
 ####调用SDK
-   ```java
-   String checkKey = request.getParameter("checkAddress");
-   String token = request.getParameter("token");
-   //一次验证传递的参数,同一次验证一样
-   String checkCode = request.getParameter("checkCode");
-   TouClickSDk.TouClick t = new TouClickSDk.TouClick();
-   Status status = t.check(sid, checkAddress, token, PUBKEY, PRIKEY, username, pwd);          
-   Console.Write("checkAddress :" + checkAddress + ",token:" + token + ",sid:" + sid);
-   Console.Write("code :" + status.Code + ",message:" + status.Message);
+   ```net
+    string username = context.Request.Form["username"];
+    string pwd = context.Request.Form["password"];
+    string checkAddress = context.Request.Form["checkAddress"];
+    string token = context.Request.Form["token"];
+    //一次验证传递的参数,同一次验证一样
+    string sid = context.Request.Form["sid"];
+    TouClickSDk.TouClick t = new TouClickSDk.TouClick();
+    Status status = t.check(sid, checkAddress, token, PUBKEY, PRIKEY, username, pwd);          
+    Console.Write("checkAddress :" + checkAddress + ",token:" + token + ",sid:" + sid);
+    Console.Write("code :" + status.Code + ",message:" + status.Message);
           
-   if (status != null && status.Code == 0)
-   {
-        var isLoginSucc = false;
-        //执行自己的程序逻辑
-        if(username == usernamecb && pwd == pwdcb)
-        {
+    if (status != null && status.Code == 0)
+    {
+         var isLoginSucc = false;
+         //执行自己的程序逻辑
+         if(username == usernamecb && pwd == pwdcb)
+         {
             isLoginSucc = true;
-        }
+         }
             t.callback(checkAddress, sid, token, PUBKEY, PRIKEY, isLoginSucc);
             context.Response.Write(status.Message);
 
