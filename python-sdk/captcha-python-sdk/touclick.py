@@ -107,7 +107,7 @@ class TouclickLib(object):
         params["sign"] = self._sign(params, self.pri_key)
         url = self.HTTP + check_address + self.CALLBACK_POSTFIX
         try:
-            requests.get(url, params=params, timeout=30)
+            requests.get(url, params=params, timeout=5)
         except:
             return self.STATUS["STATUS_HTTP_ERROR"]
 
