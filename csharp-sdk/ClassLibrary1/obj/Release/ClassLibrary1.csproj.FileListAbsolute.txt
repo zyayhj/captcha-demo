@@ -1,0 +1,5 @@
+C:\Users\zhanwei\Documents\Visual Studio 2015\Projects\NetSdk\ClassLibrary1\bin\Release\c#-sdk.dll
+C:\Users\zhanwei\Documents\Visual Studio 2015\Projects\NetSdk\ClassLibrary1\bin\Release\c#-sdk.pdb
+C:\Users\zhanwei\Documents\Visual Studio 2015\Projects\NetSdk\ClassLibrary1\obj\Release\c#-sdk.dll
+C:\Users\zhanwei\Documents\Visual Studio 2015\Projects\NetSdk\ClassLibrary1\obj\Release\c#-sdk.pdb
+C:\Users\zhanwei\Documents\Visual Studio 2015\Projects\NetSdk\ClassLibrary1\bin\Release\LitJson.dll
