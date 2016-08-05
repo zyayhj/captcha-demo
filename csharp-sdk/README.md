@@ -7,25 +7,24 @@
   - iis
 
 ##文件说明
+ 
+* WebApplication2/ web项目调用演示
+* ClassLibrary1/ SDK源码
 
-* CaptchaActive.cs/ 激活功能,为了确保您的公钥能正常使用,请务必使用配套的SDK进行激活
-* CaptchaDemo.cs/ web项目调用演示
-* captcha-net-sdk/ SDK源码
-  
 ##演示demo
-
-1. 在`CaptchaDemo`中填写从点触官网注册获得的公钥和私钥
-   ```java	
+1. `WebApplication2`需要添加`ClassLibrary1`为依赖
+2. 在`WebApplication2`中的`CaptchaDemo.cs`中填写从点触官网注册获得的公钥和私钥
+   ```net	
    private static final String PUBKEY = "";//公钥(从点触官网获取)
    private static final String PRIKEY = "";//私钥(从点触官网获取)
    ```
    
-2. 在index.html中填写
+3. 在index.html中填写
    ```xml
       <script src="http://js.touclick.com/js.touclick?b=公钥(从点触官网获得)" ></script>
    ```
    
-3. 运行demo   
+4. 运行demo   
 
 
 ##使用指南
