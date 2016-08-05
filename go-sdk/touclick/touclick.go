@@ -140,6 +140,13 @@ func (t *Touclick) Check(check_address,sid,token,user_name,user_id string) *Stat
     return &Status{Code: r.Code, Msg : r.Message}
 }
 
+/**
+* 回调，用户名和密码验证成功后的回调方法
+* @Param check_address 一次验证返回的check address
+* @Param sid 一次验证返回的sid
+* @Param token 一次验证返回的token
+* @Param isLoginSucc 用户名和密码是否检验成功
+*/
 func (t *Touclick) Callback(check_address,sid,token string,isLoginSucc bool){
     if !checkAddressPattern.MatchString(check_address){
         return
