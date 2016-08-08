@@ -98,5 +98,23 @@ example2:
 ####对象方法:
 
 ```javascript
-destory()	/* 销毁验证码实例并且从页面中移除验证码相关html*/
+destory	/* 销毁验证码实例并且从页面中移除验证码相关html*/
+```
+#######调用示例:
+
+```html
+<button id="destory"></button> 
+<script type="text/javascript">
+	var tc = new TouClick(document.getElementById('target2'),{
+		onSuccess: function( obj){
+			document.getElementById('token') = obj.token;
+			document.getElementById('checkAddress') = obj.checkAddress;
+			document.getElementById('sid') = obj.sid;
+		}
+	});
+
+	document.getElementById('destory').onclick = function(){
+		tc.destory();//销毁
+	}
+</script>
 ```
