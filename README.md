@@ -35,6 +35,7 @@ README-jslib.txt 是 JavaScript Lib 文档
 ![image](https://raw.githubusercontent.com/zyayhj/captcha-demo/master/images/classical_new.png)
 
 
+### 联系我们：
+（商务洽谈）官Q1：3180210030 ，电话010-53608568
 
-
-
+（技术支持）官Q1：495067988  

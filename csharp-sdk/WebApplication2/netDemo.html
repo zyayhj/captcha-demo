@@ -1,10 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>PHP Demo</title>
+    <title>Nodejs Demo</title>
     <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
-    <script src="http://js.touclick.com/js.touclick?b=公钥（点触官网获取）" ></script>
+    <!--<script src="http://js.touclick.com/js.touclick?b=公钥（点触官网获取）" ></script>-->
+    <script src="http://js.touclick.com/js.touclick?b=af7b946d-b653-4d7d-b045-b6964d8a668e" ></script>
     <style>
         body,html {
             font-family: 'Microsoft YaHei';
@@ -71,9 +72,9 @@
     <!-- 第二步 -->
         <!-- 将本页面源代码中 "公钥（点触官网获取）" 替换成 您在官网申请的公钥 -->
         <!-- 例如 <script src="http://js.touclick.com/js.touclick?b=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" ></script> -->
-    <form action="handel.php" method="POST" id="form" class="form" target="_blank">        
+    <form action="postdata" method="POST" id="form" class="form" target="_blank">        
         <h1 class="logo">
-            PHP DEMO
+            Nodejs DEMO
             <img src="http://captcha-static.touclick.com/SDK/sdk-static-note.png" alt="">
         </h1>           
         <!-- 用户名 -->
@@ -126,7 +127,7 @@
                     $("checkAddress").value = obj.checkAddress;
                     $("sid").value = obj.sid;
                 },
-                behaviorDom:'username'//用户名输入框的ID，可忽略该项配置
+                behaviorDom:'username'
             });
         });
         $("_submit").onclick = function(){
