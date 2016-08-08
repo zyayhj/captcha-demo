@@ -54,7 +54,7 @@ namespace WebApplication2
                 {
                     count = respStream.Read(buf, 0, buf.Length);
                     if (count != 0)
-                        respBody.Append(Encoding.ASCII.GetString(buf, 0, count));
+                        respBody.Append(Encoding.UTF8.GetString(buf, 0, count));
                 }
                 while (count > 0);
                 timer.Stop();
