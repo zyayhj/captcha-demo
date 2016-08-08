@@ -34,7 +34,6 @@ class TouClick{
 		$params ['sign'] = $sign;
 		$paramStr = $this->getStr ( $params );
 		$url = "http://" . $checkAddress . ".touclick.com/sverify.touclick2" . '?' . $paramStr;
-echo($url);		
 		// use curl
 		$ch = curl_init ();
 		curl_setopt ( $ch, CURLOPT_URL, $url );
@@ -49,7 +48,10 @@ echo($result);
 			$checkParam['timestamp'] = $params ['ran'];
 			$sign = $this->getSign($checkParam, $this->prikey);
 			if ($sign == $check['sign']) {
-				return 0;
+				$res['code'] = 12;
+				$res['message'] = '验证成功';
+				$res['checkCode'] = $check['ckCode'];
+				return $res;
 			} else {
 				$res['code'] = 12;
 				$res['message'] = '签名校验失败,数据可能被篡改';
